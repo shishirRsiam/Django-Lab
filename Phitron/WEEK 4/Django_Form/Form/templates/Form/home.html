@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block navbar %}
+    {{ block.super }}
+{% endblock %}
+
+{% block header %}
+    <p> Welcome to My Website </p>
+    <p>This is the home page content.</p>
+    {% if data.name %}
+        <div class="text-black mt-20 text-2xl">
+            <p class="">Name: {{data.name}}</p>
+            <p class="">Email: {{data.email}}</p>
+            <p class="">Password: {{data.password}}</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
