@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!-- {% load crispy_forms_tags %} -->
+{% load tailwind_filters %}
+
+{% block title %} Author {% endblock %}
+
+
+{% block content %} 
+
+<p class="text-center">Add Author</p>
+
+<form style="width: 50%; margin: auto;" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300" type="submit">
+        Submit
+    </button>    
+</form>
+
+{% endblock %}
