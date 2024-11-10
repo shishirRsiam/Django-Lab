@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block title %}
+    Add Task
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-4xl font-bold text-center text-blue-600">
+        {{ header_content }}
+    </h1>
+    <div class="w-1/2 mx-auto text-left">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
+                Save Task
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Show Task
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-4xl font-bold text-center text-blue-600 mb-2">
+        {{ text }}
+    </h1>
+    <div class="grid grid-cols-2 sm:grid-cols-2 gap-6 justify-center">
+        {% for Task in Tasks %}
+            <div class="card p-6 max-w-lg mx-auto bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                <div class="px-6 py-2">
+                    <div class="font-bold text-2xl text-blue-600 mb-3">{{ Task.id }}. {{ Task.taskTitle }}.</div>
+                    <p class="text-gray-700 text-lg mb-3">
+                        {{ Task.taskDescription }}
+                    </p>
+                    <p class="text-gray-500 text-sm italic">
+                        Create Date: <span class="font-semibold">{{ Task.taskAssignDate }}</span>
+                    </p>    
+                </div>
+                <div class="space-x-2 p-0 m-0">
+                    {% for category in Task.category.all %}
+                        <span class="inline-block bg-blue-100 rounded-full p-1 px-2 text-sm font-semibold text-blue-700">#{{ category.name }}</span>
+                    {% endfor %}
+
+                </div>
+                <div class="btn mt-3">
+                    {% if Task.is_completed %}
+                        <div class="flex space-x-3 justify-center gap-4">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                Completed
+                            </button>
+                        </div>
+                    {% else %}
+                        <div class="flex space-x-3 justify-center gap-4">
+                            <a href="{% url 'edit_task' id=Task.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Edit
+                            </a>
+                            <a href="{% url 'delete_task' id=Task.id %}" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                Delete
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+{% endblock %}
