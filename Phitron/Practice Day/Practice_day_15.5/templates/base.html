@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .cute-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-pink-50">
+    <nav class="bg-pink-200 p-4 rounded-b-lg cute-shadow">
+        <div class="container mx-auto flex justify-between items-center">
+          <a class="text-lg font-semibold text-pink-600 hover:text-pink-700" href="#">Navbar</a>
+          <button class="lg:hidden text-pink-500" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <div class="hidden lg:flex space-x-4" id="navbarSupportedContent">
+            <ul class="flex space-x-4">
+              <li>
+                <a class="text-pink-600 hover:text-pink-700" href="{% url 'home_page' %}">Home</a>
+              </li>
+              <li>
+                <a class="text-pink-600 hover:text-pink-700 font-semibold" href="{% url 'add_musician' %}">Add Musician</a>
+              </li>
+              <li>
+                <a class="text-pink-600 hover:text-pink-700" href="{% url 'add_album' %}">Add Album</a>
+              </li>
+            </ul>
+            <form class="flex items-center space-x-2">
+              <input class="border border-pink-300 rounded-full p-2 text-gray-700 focus:outline-none focus:border-pink-400" type="search" placeholder="Search" aria-label="Search">
+              <button class="px-4 py-2 bg-yellow-300 text-pink-600 rounded-full hover:bg-yellow-400 hover:text-pink-700 transition-all" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

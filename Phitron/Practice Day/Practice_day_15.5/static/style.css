@@ -1,0 +1,20 @@
+nav
+{
+    background-color: rgb(228, 224, 201);
+    font-size: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.box
+{
+    background-color: black;
+    width: 70%;
+    padding: 50px;
+    margin: auto;
+    margin-top: 10px;
+    color: yellow;
+}
+
+body
+{
+    background-color: rgba(0, 0, 0, 0.531);
+}

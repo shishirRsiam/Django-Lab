@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+   <h1 class="text-center text-2xl font-bold text-pink-600 my-4">This is a Home Page</h1>
+   <div class="overflow-x-auto">
+     <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead class="bg-pink-200 text-pink-800">
+          <tr>
+            <th class="py-2 px-4 border-b">ID</th>
+            <th class="py-2 px-4 border-b">Musician Name</th>
+            <th class="py-2 px-4 border-b">Email</th>
+            <th class="py-2 px-4 border-b">Album Rating</th>
+            <th class="py-2 px-4 border-b">Instrument Type</th>
+            <th class="py-2 px-4 border-b">Album Name</th>
+            <th class="py-2 px-4 border-b">Release Date</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          {% for musician in data %}
+          <tr class="hover:bg-pink-50">
+            <td class="py-2 px-4 border-b text-center">{{ musician.id }}</td>
+            <td class="py-2 px-4 border-b">
+              <a class="text-pink-600 hover:text-pink-800" href="{% url 'edit_musician' musician.id %}">{{ musician.name }}</a>
+            </td>
+            <td class="py-2 px-4 border-b">{{ musician.email }}</td>
+            <td class="py-2 px-4 border-b text-center">{{ musician.album.Rating }}</td>
+            <td class="py-2 px-4 border-b">{{ musician.instrument_type }}</td>
+            <td class="py-2 px-4 border-b">{{ musician.album.name }}</td>
+            <td class="py-2 px-4 border-b">{{ musician.album.album_release_date }}</td>
+            <td class="py-2 px-4 border-b text-center space-x-2">
+              <a class="px-3 py-1 bg-yellow-300 text-white rounded hover:bg-yellow-400" href="{% url 'edit_album' musician.album.id %}">Edit</a>
+              <a class="px-3 py-1 bg-red-300 text-white rounded hover:bg-red-400" href="{% url 'delete_musician' musician.id %}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+     </table>
+   </div>
+{% endblock content %}
