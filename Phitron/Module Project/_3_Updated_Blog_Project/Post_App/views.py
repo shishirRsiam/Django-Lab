@@ -14,7 +14,8 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'authenticated_home.html', context)
     
-    return render(request, 'home.html', context)
+    return render(request, 'authenticated_home.html', context)
+    # return render(request, 'home.html', context)
 
 def get_most_viewed_post():
     post = Post.objects.order_by('-views')[:5]
@@ -31,10 +32,11 @@ def view_post_by_category(request, slug):
         'posts' : Post.objects.filter(categories = category),
     }
 
-    if request.user.is_authenticated:
-        return render(request, 'authenticated_home.html', context)
+    # if request.user.is_authenticated:
+    #     return render(request, 'authenticated_home.html', context)
     
-    return redirect('home')
+    # return redirect('home')
+    return render(request, 'authenticated_home.html', context)
 
 
 def add_post(request):
@@ -82,6 +84,26 @@ def view_post(request, url):
     }
     return render(request, 'view_post.html', context)
 
+
+def edit_post(request, slug_url):
+    post = get_object_or_404(Post, slug_url=slug_url)
+
+    if not request.user.is_authenticated or post.author != request.user:
+        return redirect('home')
+    
+    if request.method == 'POST':
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.categories.set(request.POST.getlist('categories'))
+        post.save()
+        return redirect('viewpost', url=post.slug_url)
+    
+    context = {
+        'post': post,
+        'content': post.content,
+        'Categories' : Categories.objects.all(),
+    }
+    return render(request, 'edit_post.html', context)
 
 def delete_post(request, slug_url):
     post = Post.objects.get(slug_url=slug_url)

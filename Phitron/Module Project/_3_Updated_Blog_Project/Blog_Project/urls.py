@@ -12,6 +12,7 @@ urlpatterns = [
     path('add/post', PostAppViews.add_post, name='addpost'),
     path('post/<slug:url>/', PostAppViews.view_post, name='viewpost'),
     path('category/<slug:slug>/', PostAppViews.view_post_by_category, name='viewpostbycategory'),
+    path('edit/<slug:slug_url>/', PostAppViews.edit_post, name='editpost'),
     path('delete/<slug:slug_url>/', PostAppViews.delete_post, name='deletepost'),
 
     path('add/category', CategoriesAppViews.add_categories, name='addcategory'),
