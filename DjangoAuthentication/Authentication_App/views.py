@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 def home(request):
@@ -68,10 +67,7 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('home')
 
-    context = {
-
-    }
-
+    context = {}
     if request.method == 'POST':
         # Retrieve form data
         user_username = request.POST.get('username')
@@ -94,6 +90,7 @@ def login_view(request):
     # Render the login page for GET requests or if login fails
     return render(request, 'login.html', context)
 
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def logout_view(request):
@@ -113,16 +110,17 @@ def change_password(request):
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
         
-        # Ensure new and confirm password match
-        if new_password != confirm_password:
-            context['message'] = "New passwords do not match!"
-            return render(request, 'change_password.html', context)
-
         # Verify current password
         # If you want change password without checking comment out this code...
         if not request.user.check_password(current_password):
             context['message'] = "Current password is incorrect!"
             return render(request, 'change_password.html', context)
+        
+        # Ensure new and confirm password match
+        if new_password != confirm_password:
+            context['message'] = "New passwords do not match!"
+            return render(request, 'change_password.html', context)
+
         
         # Update the password
         request.user.set_password(new_password)

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-8">
+        
+        <aside class="col-span-1 md:col-span-2">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Categories</h2>
+            <ul class="space-y-2">
+                {% for categorie in categories %}
+                <li>
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-500 dark:text-gray-300">
+                        {{ categorie.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!-- Middle Column: Posts (6/10 of the width) -->
+        <main class="col-span-1 md:col-span-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Posts</h2>
+            {% for post in posts %}
+                <div class="w-full min-w-0 flex-1 space-y-4 bg-white p-4 rounded-lg shadow mb-4">
+                    <!-- Post Title -->
+                    <a href="{% url 'viewpost' url=post.slug_url %}" class="text-xl font-semibold text-gray-900 hover:underline dark:text-white">
+                        {{ post.title }}
+                    </a>
+                
+                    <!-- Post Content -->
+                    <div class="content text-gray-700 dark:text-gray-300 mt-2">
+                        {{ post.get_content|truncatewords:30 }}
+                    </div>
+
+                    <!-- Post Category -->
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        <strong>Category:</strong>
+                        {% for categorie in post.categories.all %}
+                            <a href="{% url 'home' %}" class="text-blue-500 hover:underline dark:text-blue-400">
+                                {{ categorie.name }}{% if not forloop.last %}, 
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Author, Views, and Likes -->
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        <span class="mr-4">
+                            <strong>Author:</strong> {{ post.author.first_name }} {{ post.author.last_name }}
+                        </span>
+                        <span class="mr-4">
+                            <svg class="inline-block h-4 w-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 20.8c-5.522 0-10-4.478-10-10S6.478.8 12 .8s10 4.478 10 10-4.478 10-10 10zm0-17a7 7 0 100 14 7 7 0 000-14z"/>
+                            </svg>
+                            {{ post.views }} views
+                        </span>
+                        <span>
+                            <svg class="inline-block h-4 w-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.1 4.5a5.93 5.93 0 00-4.2 1.6 6.06 6.06 0 000 8.6L12 21l4.1-4.3a6.06 6.06 0 000-8.6 5.93 5.93 0 00-4.2-1.6z"/>
+                            </svg>
+                            {{ post.like }} likes
+                        </span>
+                    </div>
+        
+                    <!-- Actions (Add to Favorites and Remove) -->
+                    <div class="flex items-center gap-4 mt-4">
+                        <!-- Add to Favorites Button -->
+                        <button type="button" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white">
+                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                            </svg>
+                            Like
+                        </button>
+        
+                        <!-- Remove Button -->
+                        <button type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
+        
+        <!-- Left Column: All Categories (1/10 of the width) -->
+        <aside class="col-span-1 md:col-span-2">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Popular Posts</h2>
+
+            <!-- Most Viewed Posts -->
+            <h3 class="text-lg font-semibold text-gray-800 mt-4">Most Viewed</h3>
+            <ul class="space-y-2 mb-4">
+                {% for post in most_viewed_posts %}
+                    <li>
+                        <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-500 dark:text-gray-300">
+                            {{ post.title }} <span class="text-sm text-gray-500">({{ post.views }} views)</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Most Liked Posts -->
+            <h3 class="text-lg font-semibold text-gray-800 mt-4">Most Liked</h3>
+            <ul class="space-y-2">
+                {% for post in most_liked_posts %}
+                    <li>
+                        <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-500 dark:text-gray-300">
+                            {{ post.title }} <span class="text-sm text-gray-500">({{ post.likes }} likes)</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+</div>
+{% endblock %}
