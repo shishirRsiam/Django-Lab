@@ -1,4 +1,4 @@
-import os
+import os, uuid
 from django.db import models
 from django.contrib.auth.models import User
 from Categories_App.models import Categories
@@ -25,8 +25,12 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug_url:
             self.slug_url = slugify(self.title)
+            print("&*"*40)
+            if not self.slug_url or Post.objects.filter(slug_url=self.slug_url).exists():
+                self.slug_url += str(uuid.uuid4())
+            print(self.slug_url)
+            print("&*"*40)
         super(Post, self).save(*args, **kwargs)
-
 
 
     def get_content_file_path(self):

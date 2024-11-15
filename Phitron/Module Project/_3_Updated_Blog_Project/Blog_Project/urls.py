@@ -10,11 +10,14 @@ urlpatterns = [
     
     path('', PostAppViews.home, name='home'),
     path('add/post', PostAppViews.add_post, name='addpost'),
-    path('edit/profile', PostAppViews.home, name='editprofile'),
     path('post/<slug:url>/', PostAppViews.view_post, name='viewpost'),
+    path('category/<slug:slug>/', PostAppViews.view_post_by_category, name='viewpostbycategory'),
+    path('delete/<slug:slug_url>/', PostAppViews.delete_post, name='deletepost'),
 
     path('add/category', CategoriesAppViews.add_categories, name='addcategory'),
 
+    path('edit/profile', AuthenticatorAppViews.edit_profile, name='editprofile'),
+    path('edit/password', AuthenticatorAppViews.change_password, name='changepassword'),
     path('login', AuthenticatorAppViews.login_page, name='login'),
     path('signup', AuthenticatorAppViews.signup_page, name='signup'),
     path('profile', AuthenticatorAppViews.profile, name='profile'), 

@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User 
+from django.contrib.auth import update_session_auth_hash
+
 
 def signup_page(request):
     context = {}
 
     if request.method == 'POST':
-        print("-> User Create,")
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         username = request.POST['username']
@@ -68,4 +69,49 @@ def profile(request):
     
     context = {}
     return render(request, 'profile.html', context)
+
+def edit_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+
+        request.user.username = request.POST['username']
+        request.user.email = request.POST['email']
+        request.user.first_name = request.POST['first_name']
+        request.user.last_name = request.POST['last_name']
+        request.user.save()
+        return redirect('profile')
+
+    context = {}
+    return render(request, 'edit_profile.html', context)
+
+def change_password(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    context = {}
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+        
+        if not request.user.check_password(old_password):
+            context['error_msg'] = 'Old password is incorrect!'
+
+        elif new_password != confirm_password:
+            context['error_msg'] = 'New password and confirm password do not match!'
+        
+        else:
+            request.user.set_password(new_password)
+            request.user.save()
+
+            update_session_auth_hash(request, request.user)
+            return redirect('profile')
+    
+    return render(request, 'change_password.html', context)
     

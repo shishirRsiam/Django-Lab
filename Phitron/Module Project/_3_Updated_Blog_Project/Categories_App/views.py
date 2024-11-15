@@ -9,9 +9,6 @@ def add_categories(request):
         category_name = request.POST.get('category_name')
         category_description = request.POST.get('category_description')
 
-        print(category_name)
-        print(category_description)
-
         if not Categories.objects.filter(name = category_name).exists():
             category = Categories.objects.create(name = category_name, description = category_description)
             category.save()
