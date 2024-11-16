@@ -1,13 +1,22 @@
 from pathlib import Path
-import os
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-qgg5v$jf#4^21v9p0nl(+j$jh$nia%@^7@dz2(f_%tsqj=j44h'
 
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-rdo$5=t=1m@2@&h#0vk-^4gzsvmigqu1@kvm8em&#)0^er3d4s'
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,8 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Authenticator_App',
-    'Categories_App',
-    'Post_App',
 ]
 
 MIDDLEWARE = [
@@ -31,12 +38,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Blog_Project.urls'
+ROOT_URLCONF = 'CurHub_Project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -49,20 +56,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Blog_Project.wsgi.application'
+WSGI_APPLICATION = 'CurHub_Project.wsgi.application'
 
+
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'BlogProject_DB',       # Your database name
+        'NAME': 'CurHubDB',       # Your database name
         'USER': 'postgres',      # Your PostgreSQL username
         'PASSWORD': '123456',    # Your PostgreSQL password
         'HOST': 'localhost',     # Set to 'localhost' if running locally
         'PORT': '5432',          # Default PostgreSQL port
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -88,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Dhaka'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    View Car Info
+{% endblock %}
+
+{% block content %}
+<div class="p-6 bg-white rounded-2xl shadow-xl transform scale-100 max-w-6xl mx-auto my-6">
+    
+    <!-- First Row: Image, Price, Description, Quantity -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Car Image -->
+        <div>
+            <img src="https://as1.ftcdn.net/v2/jpg/01/03/93/54/1000_F_103935486_r7tc37xz2WqjDUXLrCvZtbVZlqcwj2CR.jpg" 
+                 alt="Project Thumbnail" class="w-3xl h-70 object-cover rounded-t-2xl">
+        </div>
+        
+        <!-- Car Info (Price, Description, Quantity) -->
+        <div>
+            <h3 class="text-2xl font-extrabold text-gray-800 mb-4">Buy and Renew Car Insurance Policy Online with CarInfo</h3>
+            <p class="text-lg text-gray-700 mb-4">Description of the car's features and condition...</p>
+            
+            <div class="items-center mb-4">
+                <p class="text-xl font-semibold text-gray-700">Price: <span class="text-teal-500">19000000 Taka</span></p>
+                <p class="text-xl font-semibold text-gray-700">Brand: <span class="text-teal-500">Toyota</span></p>
+                <p class="text-xl font-semibold text-gray-700">Condition: <span class="text-teal-500">Brand New</span></p>
+                <p class="text-xl font-semibold text-gray-700">Quantity: <span class="text-teal-500">1 available</span></p>
+            </div>
+            
+            <!-- Buy Now Button -->
+            {% if user.is_authenticated %}
+                <a href="#" class="inline-block py-3 px-8 bg-teal-600 text-white font-semibold rounded-lg 
+                                    hover:bg-teal-700 hover:scale-105 transition-all duration-300 ease-in-out shadow-md transform">
+                    Buy Now
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Second Row: Car Description and Selling Website Links -->
+    <div class="mb-6">
+        <h4 class="text-xl font-semibold text-gray-700 mb-4">More Details</h4>
+        
+        <div class="mb-4">
+            <h5 class="font-semibold text-gray-700">Car Full Description:</h5>
+            <p class="text-gray-700">Here you can include a more detailed description of the car, including any additional features or conditions that may be important to buyers.</p>
+        </div>
+        
+    </div>
+
+    <!-- Comment Section -->
+    {% if user.is_authenticated %}
+        <div class="mb-6">
+            <h4 class="text-xl font-semibold text-gray-700 mb-4">Leave a Comment</h4>
+            
+            <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                <textarea name="comment" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Write your comment here..."></textarea>
+                
+                <div class="mt-4">
+                    <button type="submit" class="py-2 px-6 bg-teal-600 text-white font-semibold rounded-lg 
+                                    hover:bg-teal-700 hover:scale-105 transition-all duration-300 ease-in-out shadow-md transform">
+                        Submit Comment
+                    </button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    <!-- Static Comments Section -->
+    <div class="mb-6">
+        <h4 class="text-xl font-semibold text-gray-700 mb-4">User Comments</h4>
+        
+        <div class="space-y-4">
+            <!-- Static Comment 1 -->
+            <div class="p-4 border border-gray-300 rounded-lg">
+                <p class="text-lg font-semibold text-teal-600">Admin Sishir</p>
+                <p class="text-gray-700">This car looks amazing! I am interested in learning more about the insurance policy options.</p>
+            </div>
+
+            <!-- Static Comment 2 -->
+            <div class="p-4 border border-gray-300 rounded-lg">
+                <p class="text-lg font-semibold text-teal-600">Jane Smith</p>
+                <p class="text-gray-700">I love Toyota cars! Could you share more details on the warranty and service options available?</p>
+            </div>
+            <!-- Static Comment 2 -->
+            <div class="p-4 border border-gray-300 rounded-lg">
+                <p class="text-lg font-semibold text-teal-600">Sishir Siam</p>
+                <p class="text-gray-700">
+                    I love Toyota cars! Could you share more details on the warranty and service options available?
+                    I love Toyota cars! Could you share more details on the warranty and service options available?
+                
+                </p>
+            </div>
+            
+            <!-- Add more static comments here -->
+        </div>
+    </div>
+
+    <!-- Action Button: Back to Home -->
+    <a href="{% url 'home' %}" 
+       class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full 
+              hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-105 hover:rotate-3 
+              transition-all duration-300 ease-in-out shadow-lg transform">
+        Back to Home
+    </a>
+</div>
+{% endblock %}

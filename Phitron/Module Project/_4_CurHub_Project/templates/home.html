@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="text-center mb-4 text-lg font-semibold text-blue-600">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="container mx-auto py-12 px-4">
+
+    <!-- Call to Action -->
+    {% if not user.is_authenticated %}
+        <div class="div min-h-auto mb-6">
+            <section class="text-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Marketplace Today</h3>
+                <p class="text-gray-700 mb-6">
+                    Whether you're a seller or a buyer, CurHub BD has something for everyone. Start now!
+                </p>
+                <a href="{% url 'signup' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                    Get Started
+                </a>
+            </section>
+        </div>
+    {% endif %}
+
+    <!-- Featured Brand Section -->
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Featured Brands</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <!-- Brand 1: Toyota -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Toyota_logo.svg/800px-Toyota_logo.svg.png" alt="Toyota" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Toyota</p>
+            </div>
+
+            <!-- Brand 2: Mercedes -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Mercedes-Benz_Logo_2010.svg/800px-Mercedes-Benz_Logo_2010.svg.png" alt="Mercedes" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Mercedes-Benz</p>
+            </div>
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/1024px-Tesla_logo.png" alt="Tesla" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Tesla</p>
+            </div>
+
+            <!-- Brand 3: BMW -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1024px-BMW.svg.png" alt="BMW" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">BMW</p>
+            </div>
+            <!-- Brand 3: BMW -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1024px-BMW.svg.png" alt="BMW" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">BMW</p>
+            </div>
+            <!-- Brand 3: BMW -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1024px-BMW.svg.png" alt="BMW" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">BMW</p>
+            </div>
+
+            <!-- Brand 4: Audi -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Audi_logo_2023.svg/1024px-Audi_logo_2023.svg.png" alt="Audi" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Audi</p>
+            </div>
+
+            <!-- Brand 5: Honda -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Honda_logo_2023.svg/800px-Honda_logo_2023.svg.png" alt="Honda" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Honda</p>
+            </div>
+            <!-- Brand 5: Siam -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Honda_logo_2023.svg/800px-Honda_logo_2023.svg.png" alt="Honda" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Siam</p>
+            </div>
+            <!-- Brand 5: Siam -->
+            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Honda_logo_2023.svg/800px-Honda_logo_2023.svg.png" alt="Honda" class="w-32 mx-auto mb-4">
+                <p class="text-xl font-semibold text-gray-700">Siam</p>
+            </div>
+
+            <!-- Add More Brands as needed -->
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-10 rounded-lg cute-shadow text-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Featured Cars for Sale</h2>
+        <p class="text-lg text-gray-700 mb-8">
+            Explore our top-rated cars, handpicked by our team. Find your dream ride today!
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Example Project -->
+            {% for project in projects %}
+            <div class="p-6 bg-white rounded-2xl shadow-xl transform scale-100">
+                <img src="https://as1.ftcdn.net/v2/jpg/01/03/93/54/1000_F_103935486_r7tc37xz2WqjDUXLrCvZtbVZlqcwj2CR.jpg" alt="Car Thumbnail" class="w-full h-60 object-cover rounded-t-2xl mb-6">
+            
+                <h3 class="text-2xl font-extrabold text-gray-800 mb-4">Explore Our Latest Car Models</h3>
+                
+                <div class="items-center mb-4">
+                    <p class="text-xl font-semibold text-gray-700">Brand: <span class="text-teal-500">Toyota</span></p>
+                    <p class="text-xl font-semibold text-gray-700">Price: <span class="text-teal-500">19000000 Taka</span></p>
+                    <p class="text-xl font-semibold text-gray-700">Condition: <span class="text-teal-500">Brand New</span></p>
+                </div>
+
+                <a href="{% url 'view_info' %}" 
+                    class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full 
+                            hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-10 hover:rotate-3 
+                            transition-all duration-300 ease-in-out shadow-lg transform">
+                    View Details
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    </div>
+{% endblock %}
