@@ -87,21 +87,21 @@
     <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-xl p-6 mt-8">
         <h2 class="text-2xl font-bold text-purple-700 mb-6">Purchase History</h2>
     
-        {% if purchases %}
+        {% if Purchases %}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {% for purchase in purchases %}
+                {% for Purchase in Purchases %}
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <!-- Car Image -->
-                    <img src="https://as1.ftcdn.net/v2/jpg/01/03/93/54/1000_F_103935486_r7tc37xz2WqjDUXLrCvZtbVZlqcwj2CR.jpg" alt="Car Thumbnail" class="w-full h-60 object-cover">
+                    <img src="{{ Purchase.car.image.url }}" alt="{{ Purchase.car.name }} Toyota ({{Purchase.car.year}})" class="w-full h-60 object-cover">
     
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-semibold text-gray-800">Brand New Car {{ purchase.car.model }} Toyota</h3>
+                            <h3 class="text-xl font-semibold text-gray-800">{{ Purchase.car.name }} Toyota ({{Purchase.car.year}})</h3>
                         </div>
                         
-                        <p class="text-gray-600 text-lg">Price: <span class="text-teal-500 font-bold">19900000{{ purchase.price }} Taka</span></p>
-                        <p class="text-gray-600 text-lg">Date: {{ purchase.date }} Today</p>
-                        <a href="#" class="inline-block mt-4 px-6 py-2 bg-teal-600 text-white font-semibold rounded-md text-center hover:bg-teal-700 transition-all duration-300 ease-in-out">View Details</a>
+                        <p class="text-gray-600 text-lg">Price: <span class="text-teal-500 font-bold">${{ Purchase.car.price }}</span></p>
+                        <p class="text-gray-600 text-lg">Date: {{ Purchase.created_at }}</p>
+                        <a href="{% url 'view_info' Purchase.car.id %}" class="inline-block mt-4 px-6 py-2 bg-teal-600 text-white font-semibold rounded-md text-center hover:bg-teal-700 transition-all duration-300 ease-in-out">View Details</a>
                     </div>
                 </div>
                 {% endfor %}

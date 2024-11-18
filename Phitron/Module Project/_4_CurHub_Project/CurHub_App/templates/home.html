@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="text-center mb-4 text-lg font-semibold text-blue-600">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="container mx-auto py-12 px-4">
+
+    <!-- Call to Action -->
+    {% if not user.is_authenticated %}
+        <div class="div min-h-auto mb-6">
+            <section class="text-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Marketplace Today</h3>
+                <p class="text-gray-700 mb-6">
+                    Whether you're a seller or a buyer, CurHub BD has something for everyone. Start now!
+                </p>
+                <a href="{% url 'signup' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                    Get Started
+                </a>
+            </section>
+        </div>
+    {% endif %}
+
+    <!-- Featured Brand Section -->
+    <section class="mb-12">
+        {% if Brands %}
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Featured Brands</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                
+                {% for Brand in Brands %}
+                    <a href="{% url 'view_cars_brand' Brand.id %}">
+                        <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                            <img src="{{ Brand.image.url }}" alt="{{ Brand.name }}" class="w-32 h-32 object-cover mx-auto mb-4">
+                            <p class="text-xl font-semibold text-gray-700">{{ Brand.name }}</p>
+                        </div>  
+                    </a>          
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-10 rounded-lg cute-shadow text-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">{{header_text}}</h2>
+        {% if Cars %}
+            <p class="text-lg text-gray-700 mb-8">
+                Explore our top-rated cars, handpicked by our team. Find your dream ride today!
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {% for Car in Cars %}
+                <div class="p-6 bg-white rounded-2xl shadow-xl transform scale-100">
+                    <img src="{{ Car.image.url }}" alt="Car Thumbnail" class="w-full h-60 object-cover rounded-t-2xl mb-6">
+                
+                    <h3 class="text-2xl font-extrabold text-gray-800 mb-4">{{ Car.name }} ({{Car.year}})</h3>
+                    
+                    <div class="items-center mb-4">
+                        <p class="text-xl font-semibold text-gray-700">Year: <span class="text-teal-500"> {{Car.year }} </span></p>
+                        <p class="text-xl font-semibold text-gray-700">Brand: <span class="text-teal-500"> {{ Car.brand.name }} </span></p>
+                        <p class="text-xl font-semibold text-gray-700">Price: <span class="text-teal-500"> ${{Car.price }} </span></p>
+                    </div>
+
+                    <a href="{% url 'view_info' Car.id %}" 
+                        class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full 
+                                hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-10 hover:rotate-3 
+                                transition-all duration-300 ease-in-out shadow-lg transform">
+                        View Details
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <p class="text-gray-500 text-center text-3xl">No cars available at the moment. Please check back later!</p>
+            {% endif %}
+        </section>
+    
+    </div>
+{% endblock %}

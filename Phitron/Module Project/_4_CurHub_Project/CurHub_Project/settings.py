@@ -15,6 +15,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import os
+
+MEDIA_URL = '/media/'  # The base public URL for media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # The directory to store uploaded files
 
 # Application definition
 
@@ -26,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Authenticator_App',
+    'CurHub_App',
+    'Brand_App',
 ]
 
 MIDDLEWARE = [
@@ -104,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 

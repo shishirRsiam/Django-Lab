@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
+from CurHub_App.models import Purchase
 
 
 def signup_page(request):
@@ -64,9 +65,10 @@ def logout_page(request):
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    
+
+    Purchases = Purchase.objects.filter(user=request.user).order_by('-id')
     context = {
-        'purchases' : [1, 2, 3, 4, 5],
+        'Purchases' : Purchases,
     }
     return render(request, 'profile.html', context)
 
