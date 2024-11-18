@@ -24,6 +24,9 @@ def view_cars_filter_by_brand(request, brand_id):
     return render(request, 'home.html', context)
 
 def buy_car(request, id):
+    if not request.user.is_authenticated:
+        return redirect('view_info', id)
+    
     car = Car.objects.get(id=id)
     if car:
         car.quantity -= 1
@@ -32,10 +35,7 @@ def buy_car(request, id):
         purchase.save()
         return redirect('profile')
 
-    context = {
-        'Car' : car,
-    }
-    return redirect('view_info', car.id)
+    return redirect('view_info', id)
 
 def view_info(request, id):
     car = Car.objects.get(id=id)
