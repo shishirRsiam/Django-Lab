@@ -70,31 +70,49 @@
     <div class="bg-gray-100 shadow-lg rounded-lg p-6">
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Loan History</h2>
 
-        {% if history %}
-        <table class="w-full table-auto border-collapse border border-gray-300 text-left">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border border-gray-300 px-4 py-2">#</th>
-                    <th class="border border-gray-300 px-4 py-2">Loan Amount</th>
-                    <th class="border border-gray-300 px-4 py-2">Loan Type</th>
-                    <th class="border border-gray-300 px-4 py-2">Purpose</th>
-                    <th class="border border-gray-300 px-4 py-2">Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for loan in history %}
-                <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-300 px-4 py-2">{{ forloop.counter }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ loan.amount }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ loan.type }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ loan.purpose }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ loan.date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% if transactions %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full border-collapse border border-gray-300 text-left text-gray-800">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Date</th>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Type</th>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Transaction ID</th>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Amount</th>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Balance After</th>
+                            <th class="border border-gray-300 px-4 py-2 font-medium">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">{{ transaction.created_at|date:"d M Y - h:i:s A" }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ transaction.transaction_type }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {% if transaction.after_transaction_balance %}
+                                        {{ transaction.transaction_id }}
+                                    {% endif %}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">${{ transaction.amount }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {% if transaction.after_transaction_balance %}
+                                        ${{ transaction.after_transaction_balance }}
+                                    {% endif %}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {% if transaction.status %}
+                                        <span class="text-green-600 font-semibold">Approved</span>
+                                    {% else %}
+                                        <span class="text-red-600 font-semibold">Pending</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
-        <p class="text-gray-600">No loan history found.</p>
+            <p class="text-gray-500 mt-4">No Loan history found.</p>
         {% endif %}
     </div>
 </div>

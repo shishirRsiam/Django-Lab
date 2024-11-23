@@ -77,7 +77,13 @@
                                 </td>
                                 <td class="border border-gray-300 px-4 py-2">
                                     {% if transaction.status %}
-                                        <span class="text-green-600 font-semibold">Success</span>
+                                        <span class="text-green-600 font-semibold">
+                                            {% if transaction.transaction_type == 'Loan' %}
+                                                Approved
+                                            {% else %}
+                                                Success
+                                            {% endif %}
+                                        </span>
                                     {% else %}
                                         <span class="text-red-600 font-semibold">Pending</span>
                                     {% endif %}

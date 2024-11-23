@@ -1,38 +1,50 @@
 {% block navbar %}
 <header class="bg-indigo-600 text-white p-4 shadow-md">
-    <div class="container mx-auto grid grid-cols-2 gap-4 items-center">
-        <!-- First Column: Authenticated User Options (Loan, Deposit, Report) -->
-        <div class="flex items-start justify-start space-x-4">
-            <a href="{% url 'home' %}" class="text-2xl font-semibold tracking-wide mt-1">
-                Mamar Bank
-            </a>
-            {% if user.is_authenticated and user.is_staff and user.is_superuser %}
-                <a href="{% url 'loan_request' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
-                    View Loan Request
-                </a>
-            {% elif user.is_authenticated %}
-                <a href="{% url 'loan' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
-                    Loan
-                </a>
-                <a href="{% url 'deposit' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
-                    Deposit
-                </a>
-                <a href="{% url 'withdrow' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
-                    Withdrow
-                </a>
-                <a href="{% url 'sent_money' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
-                    Sent Money
-                </a>
-            {% endif %}
-        </div>
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="text-2xl font-semibold tracking-wide">
+            Mamar Bank
+        </a>
 
-        <!-- Second Column: General Navigation (Home, Profile, Logout) -->
-        <div class="flex justify-end space-x-4">
+        <!-- Hamburger Menu (Mobile Only) -->
+        <button
+            class="block lg:hidden text-white focus:outline-none transition transform hover:scale-110"
+            id="menu-toggle">
+            <div class="space-y-2">
+                <div class="w-8 h-1 bg-white rounded transition-transform"></div>
+                <div class="w-8 h-1 bg-white rounded transition-transform"></div>
+                <div class="w-8 h-1 bg-white rounded transition-transform"></div>
+            </div>
+        </button>
+
+        <!-- Navigation Links -->
+        <nav
+            id="menu"
+            class="hidden lg:flex flex-col lg:flex-row lg:space-x-6 lg:items-center lg:bg-transparent bg-indigo-700 lg:rounded-none rounded-lg lg:shadow-none shadow-lg lg:p-0 p-4">
             {% if user.is_authenticated %}
-                <p class="text-white font-semibold px-4 py-2 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg transition">
-                    Balance: ${{ user.account.balance }}
-                </p>
-            
+                {% if user.is_staff and user.is_superuser %}
+                    <a href="{% url 'loan_request' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                        View Loan Request
+                    </a>
+                {% else %}
+                    <p class="text-white font-semibold px-4 py-2 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg transition">
+                        Balance: ${{ user.account.balance }}
+                    </p>
+                    <a href="{% url 'loan' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                        Loan
+                    </a>
+                    <a href="{% url 'deposit' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                        Deposit
+                    </a>
+                    <a href="{% url 'withdrow' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                        Withdrow
+                    </a>
+                    <a href="{% url 'sent_money' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                        Sent Money
+                    </a>
+                {% endif %}
+
+                <!-- General Navigation -->
                 <a href="{% url 'report' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
                     Report
                 </a>
@@ -53,7 +65,38 @@
                     Sign Up
                 </a>
             {% endif %}
-        </div>
+        </nav>
     </div>
 </header>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('animate-slide-down'); // Smooth animation
+        const [line1, line2, line3] = menuToggle.children[0].children;
+        line1.classList.toggle('rotate-45');
+        line2.classList.toggle('opacity-0');
+        line3.classList.toggle('-rotate-45');
+    });
+</script>
+
+<style>
+    @keyframes slide-down {
+        from {
+            transform: translateY(-10%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-down {
+        animation: slide-down 0.3s ease-out;
+    }
+</style>
 {% endblock %}

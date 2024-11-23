@@ -11,7 +11,7 @@ def email_sent(user, subject, html_message):
     email = EmailMultiAlternatives(
         subject=subject,
         body=html_message,
-        from_email='support@mamarbank.com',
+        from_email='your.mamarbank@gmail.com',
         to=[user.email]
     )
     email.attach_alternative(html_message, 'text/html')

@@ -131,6 +131,9 @@ def loan(request):
             return redirect('report')
             
         context['error_msg'] = "Invalid amount"
+    
+    loan = Loan.objects.filter(user=request.user).order_by('-id')
+    context['transactions'] = loan
     return render(request, 'loan.html', context)
 
 def loan_request(request):

@@ -1,14 +1,13 @@
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+from . import credentials
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q1c9(q0s)$t28vzc5t_=i6w)ks%cyeru@dv%+cqhz433*9bp)g'
-
+SECRET_KEY = credentials.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -56,7 +55,7 @@ TEMPLATES = [
         },
     },
 ]
-EMAIL_HOST_USER = 'your.mamarbank@gmail.com'
+
 WSGI_APPLICATION = 'Mamar_Bank_Project.wsgi.application'
 
 
@@ -73,9 +72,9 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'Mamar_Bank_DB',       # Your database name
-#         'USER': 'postgres',      # Your PostgreSQL username
-#         'PASSWORD': '123456',    # Your PostgreSQL password
+#         'NAME': credentials.DATABASE_NAME,       # Your database name
+#         'USER': credentials.DATABASE_USER,      # Your PostgreSQL username
+#         'PASSWORD': credentials.DATABASE_PASSWORD,    # Your PostgreSQL password
 #         'HOST': 'localhost',     # Set to 'localhost' if running locally
 #         'PORT': '5432',          # Default PostgreSQL port
 #     }
@@ -98,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-EMAIL_HOST_PASSWORD = 'rvqfhblshccyimfh'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Dhaka'
@@ -119,3 +118,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
