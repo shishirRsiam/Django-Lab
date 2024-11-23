@@ -1,0 +1,59 @@
+{% block navbar %}
+<header class="bg-indigo-600 text-white p-4 shadow-md">
+    <div class="container mx-auto grid grid-cols-2 gap-4 items-center">
+        <!-- First Column: Authenticated User Options (Loan, Deposit, Report) -->
+        <div class="flex items-start justify-start space-x-4">
+            <a href="{% url 'home' %}" class="text-2xl font-semibold tracking-wide mt-1">
+                Mamar Bank
+            </a>
+            {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                <a href="{% url 'loan_request' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    View Loan Request
+                </a>
+            {% elif user.is_authenticated %}
+                <a href="{% url 'loan' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Loan
+                </a>
+                <a href="{% url 'deposit' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Deposit
+                </a>
+                <a href="{% url 'withdrow' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Withdrow
+                </a>
+                <a href="{% url 'sent_money' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Sent Money
+                </a>
+            {% endif %}
+        </div>
+
+        <!-- Second Column: General Navigation (Home, Profile, Logout) -->
+        <div class="flex justify-end space-x-4">
+            {% if user.is_authenticated %}
+                <p class="text-white font-semibold px-4 py-2 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg transition">
+                    Balance: ${{ user.account.balance }}
+                </p>
+            
+                <a href="{% url 'report' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Report
+                </a>
+                <a href="{% url 'profile' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Profile
+                </a>
+                <a href="{% url 'logout' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-800 hover:bg-indigo-400 hover:shadow-md transition">
+                    Log Out
+                </a>
+            {% else %}
+                <a href="{% url 'home' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Home
+                </a>
+                <a href="{% url 'login' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Login
+                </a>
+                <a href="{% url 'sign_up' %}" class="text-white font-semibold px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-400 hover:shadow-md transition">
+                    Sign Up
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+{% endblock %}

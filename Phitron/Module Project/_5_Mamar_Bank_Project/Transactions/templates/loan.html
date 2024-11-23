@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %} Loan and History {% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6 max-w-6xl">
+    <!-- Loan Form Section -->
+    <div class="bg-gradient-to-r from-blue-500 to-teal-500 text-white shadow-lg rounded-lg p-8 mb-8">
+        <h1 class="text-4xl font-bold">Loan Application</h1>
+        <p class="text-lg mt-2">Fill in the details for your loan request.</p>
+    </div>
+
+    <!-- Loan Form -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-12">
+        {% if error_msg %}
+            <div class="text-red-600 text-center text-xl">
+                <p>{{ error_msg }}</p>
+            </div>
+        {% endif %}
+        <form method="POST" class="space-y-8">
+            {% csrf_token %}
+        
+            <!-- Loan Amount -->
+            <div class="form-group">
+                <label for="amount" class="block text-gray-800 font-medium text-xl">Loan Amount</label>
+                <input type="number" name="amount" id="amount" 
+                    class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-teal-400 transition duration-300 text-lg" 
+                    value="{{ request.POST.amount }}" step="0.01" required>
+            </div>
+        
+            <!-- Loan Purpose -->
+            <div class="form-group">
+                <label for="purpose" class="block text-gray-800 font-medium text-xl">Loan Purpose</label>
+                <select name="purpose" id="purpose" class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-teal-400 transition duration-300 text-lg">
+                    <option value="Personal" {% if request.POST.type == 'personal' %}selected{% endif %}>Personal Loan</option>
+                    <option value="Home" {% if request.POST.type == 'home' %}selected{% endif %}>Home Loan</option>
+                    <option value="Education" {% if request.POST.type == 'education' %}selected{% endif %}>Education Loan</option>
+                    <option value="Business" {% if request.POST.type == 'business' %}selected{% endif %}>Business Loan</option>
+                </select>
+            </div>
+    
+        
+            <!-- Repayment Frequency -->
+            <div class="form-group">
+                <label for="repayment_frequency" class="block text-gray-800 font-medium text-xl">Repayment Frequency</label>
+                <select name="repayment_frequency" id="repayment_frequency" class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-teal-400 transition duration-300 text-lg">
+                    <option value="Weekly" {% if request.POST.repayment_frequency == 'Weekly' %}selected{% endif %}>Weekly</option>
+                    <option value="Monthly" {% if request.POST.repayment_frequency == 'Monthly' %}selected{% endif %}>Monthly</option>
+                    <option value="Quarterly" {% if request.POST.repayment_frequency == 'Quarterly' %}selected{% endif %}>Quarterly</option>
+                    <option value="Annually" {% if request.POST.repayment_frequency == 'Annually' %}selected{% endif %}>Annually</option>
+                </select>
+            </div>
+        
+            <!-- Loan Priority -->
+            <div class="form-group">
+                <label for="priority" class="block text-gray-800 font-medium text-xl">Loan Priority</label>
+                <select name="priority" id="priority" class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-teal-400 transition duration-300 text-lg">
+                    <option value="Urgent" {% if request.POST.priority == 'Urgent' %}selected{% endif %}>Urgent</option>
+                    <option value="Regular" {% if request.POST.priority == 'Regular' %}selected{% endif %}>Regular</option>
+                </select>
+            </div>
+        
+            <button type="submit" class="w-full py-3 px-6 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300 transform hover:scale-105 text-xl">
+                Submit Loan Application
+            </button>
+        </form>        
+    </div>
+
+    <!-- Loan History Section -->
+    <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Loan History</h2>
+
+        {% if history %}
+        <table class="w-full table-auto border-collapse border border-gray-300 text-left">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">Loan Amount</th>
+                    <th class="border border-gray-300 px-4 py-2">Loan Type</th>
+                    <th class="border border-gray-300 px-4 py-2">Purpose</th>
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in history %}
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2">{{ forloop.counter }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ loan.amount }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ loan.type }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ loan.purpose }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ loan.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-gray-600">No loan history found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
