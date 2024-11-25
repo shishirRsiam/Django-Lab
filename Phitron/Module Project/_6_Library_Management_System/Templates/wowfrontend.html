@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurHub BD - {% block title %} Home {% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .cute-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-white">
+    <nav class="bg-pink-200 p-3 rounded-b-lg cute-shadow">
+        <div class="container mx-auto flex justify-between items-center">
+          <a class="text-lg font-semibold text-pink-600 hover:text-pink-700" href="/">CurHub BD</a>
+          <button class="lg:hidden text-pink-500" type="button" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleNavbar()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <div class="hidden lg:flex space-x-4" id="navbar-content">
+            <ul class="flex space-x-2">
+                <li><a href="{% url 'home' %}" class="flex items-center px-4 py-2 text-pink-600 font-semibold rounded-lg hover:bg-pink-100 hover:text-pink-700 transition-colors duration-200"><i class="fas fa-home mr-2"></i> Home</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'profile' %}" class="flex items-center px-4 py-2 text-pink-600 font-semibold rounded-lg hover:bg-pink-100 hover:text-pink-700 transition-colors duration-200">
+                        <i class="fas fa-user mr-2"></i> Profile
+                    </a>
+                </li>
+                    <li><a href="{% url 'logout' %}" class="flex items-center px-4 py-2 text-pink-600 font-semibold rounded-lg hover:bg-pink-100 hover:text-pink-700 transition-colors duration-200"><i class="fas fa-right-from-bracket mr-2"></i> LogOut</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="flex items-center px-4 py-2 text-pink-600 font-semibold rounded-lg hover:bg-pink-100 hover:text-pink-700 transition-colors duration-200"><i class="fas fa-sign-in-alt mr-2"></i> LogIn </a></li>
+                    <li><a href="{% url 'signup' %}" class="flex items-center px-4 py-2 text-pink-600 font-semibold rounded-lg hover:bg-pink-100 hover:text-pink-700 transition-colors duration-200"><i class="fas fa-user-plus mr-2"></i> SignUp </a></li>
+                {% endif %}
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen bg-gradient-to-b from-blue-100 to-white flex flex-col justify-center items-center">
+        {% block content %}
+            {% if message %}
+                <div class="text-center mb-4 text-lg font-semibold text-blue-600">
+                    {{ message }}
+                </div>
+            {% endif %}
+            <div class="container mx-auto py-12 px-4">
+                <!-- Hero Section -->
+                <section class="text-center mb-16">
+                    <h1 class="text-5xl font-extrabold text-pink-600 mb-6">
+                        Discover & Sell Projects with CurHub BD
+                    </h1>
+                    <p class="text-lg text-gray-700 mb-8">
+                        CurHub BD connects creators and innovators. Browse curated projects or sell your own creations to a global audience. Empower your ideas today!
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="{% url 'home' %}" class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300">
+                            Explore Projects
+                        </a>
+                        <a href="{% url 'home' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                            Sell Your Project
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-16">
+                    <div class="p-6 bg-white rounded-lg cute-shadow">
+                        <i class="fas fa-rocket text-pink-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Launch Your Ideas</h3>
+                        <p class="text-gray-600">
+                            Upload your projects, set prices, and reach a wide audience. It's never been easier to monetize your skills.
+                        </p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg cute-shadow">
+                        <i class="fas fa-search text-pink-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Curated Marketplace</h3>
+                        <p class="text-gray-600">
+                            Discover high-quality projects from creators worldwide. Find exactly what you need, when you need it.
+                        </p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg cute-shadow">
+                        <i class="fas fa-users text-pink-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Collaborative Community</h3>
+                        <p class="text-gray-600">
+                            Join a community of creators, buyers, and innovators. Connect, collaborate, and grow together.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Featured Projects Section -->
+                <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-10 rounded-lg cute-shadow text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Featured Projects</h2>
+                    <p class="text-lg text-gray-700 mb-8">
+                        Explore top-rated and trending projects handpicked by our team.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        <!-- Example Project -->
+                        <div class="p-6 bg-white rounded-lg cute-shadow">
+                            <img src="https://via.placeholder.com/150" alt="Project Thumbnail" class="w-full h-40 object-cover mb-4 rounded">
+                            <h3 class="text-lg font-bold text-gray-800">AI-Powered Chatbot</h3>
+                            <p class="text-gray-600 mb-4">A smart chatbot built using Python and AI technologies.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">View Details</a>
+                        </div>
+                        <div class="p-6 bg-white rounded-lg cute-shadow">
+                            <img src="https://via.placeholder.com/150" alt="Project Thumbnail" class="w-full h-40 object-cover mb-4 rounded">
+                            <h3 class="text-lg font-bold text-gray-800">E-commerce Website</h3>
+                            <p class="text-gray-600 mb-4">A responsive e-commerce platform for online shopping.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">View Details</a>
+                        </div>
+                        <div class="p-6 bg-white rounded-lg cute-shadow">
+                            <img src="https://via.placeholder.com/150" alt="Project Thumbnail" class="w-full h-40 object-cover mb-4 rounded">
+                            <h3 class="text-lg font-bold text-gray-800">Crypto Tracker App</h3>
+                            <p class="text-gray-600 mb-4">Track and analyze cryptocurrency trends in real-time.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Call to Action -->
+                <section class="text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Marketplace Today</h3>
+                    <p class="text-gray-700 mb-6">
+                        Whether you're a creator or a buyer, CurHub BD has something for everyone. Start now!
+                    </p>
+                    <a href="{% url 'signup' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                        Get Started
+                    </a>
+                </section>
+            </div>
+        {% endblock content %}
+
+    </div>
+    <footer class="text-center text-gray-500 text-xs mb-5">
+        &copy;2024 CurHub. All rights reserved.
+    </footer>
+
+</body>
+</html>

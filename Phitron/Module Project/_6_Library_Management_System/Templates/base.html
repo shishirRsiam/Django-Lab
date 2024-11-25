@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurHub BD - {% block title %} Home {% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .cute-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-white">
+    <nav class="bg-pink-200 p-4 cute-shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/" class="text-2xl font-bold text-pink-600 hover:text-pink-700">
+                CurHub BD
+            </a>
+    
+            <!-- Mobile Toggle Button -->
+            <button 
+                class="lg:hidden text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                type="button"
+                aria-controls="navbar-content"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                onclick="toggleNavbar()"
+            >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+    
+            <!-- Navbar Content -->
+            <div id="navbar-content" class="hidden lg:flex space-x-6">
+                <ul class="flex items-center space-x-4">
+                    <!-- Home -->
+                    <li>
+                        <a href="{% url 'home' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
+                            <i class="fas fa-home mr-2"></i> Home
+                        </a>
+                    </li>
+                    
+                    <!-- Authenticated Links -->
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'profile' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
+                            <i class="fas fa-user mr-2"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </a>
+                    </li>
+                    {% else %}
+                    <!-- Guest Links -->
+                    <li>
+                        <a href="{% url 'login' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
+                            <i class="fas fa-user-plus mr-2"></i> SignUp
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="min-h-screen bg-gradient-to-b from-blue-100 to-white flex flex-col justify-center items-center">
+        {% block content %}
+            
+        {% endblock content %}
+    </div>
+    <footer class="text-center text-gray-500 text-xs mb-5">
+        &copy;2024 CurHub BD. All rights reserved.
+    </footer>
+
+</body>
+</html>

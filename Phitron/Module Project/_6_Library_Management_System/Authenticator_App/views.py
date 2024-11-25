@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
-from CurHub_App.models import Purchase
+from django.contrib.auth import authenticate, login, logout
 
 
 def signup_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     context = {}
-
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -32,8 +34,6 @@ def signup_page(request):
 
     return render(request, 'signup.html', context)
 
-
-from django.contrib.auth import authenticate, login
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -52,8 +52,6 @@ def login_page(request):
 
     return render(request, 'login.html', context)
 
-
-from django.contrib.auth import logout
 def logout_page(request):
     if not request.user.is_authenticated:
         return redirect('home')
@@ -61,14 +59,13 @@ def logout_page(request):
     logout(request)
     return redirect('home')
 
-
-def profile(request):
+def profile_page(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    Purchases = Purchase.objects.filter(user=request.user).order_by('-id')
+    # Purchases = Purchase.objects.filter(user=request.user).order_by('-id')
     context = {
-        'Purchases' : Purchases,
+        # 'Purchases' : Purchases,
     }
     return render(request, 'profile.html', context)
 
