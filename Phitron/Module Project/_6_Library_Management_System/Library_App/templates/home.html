@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="text-center mb-4 text-lg font-semibold text-blue-600">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="container mx-auto">
+        {% if is_additional_content %}
+            <!-- Additional Content Section -->
+            <section class="mb-12 text-center text-lg">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Our Library?</h3>
+                <p class="text-gray-700 mb-6">
+                    Our library offers a wide variety of books across all genres. Whether you're looking for fiction, non-fiction, educational resources, or self-improvement books, we have something for everyone!
+                </p>
+                <p class="text-gray-700 mb-6">
+                    With regular updates to our collection, you're sure to find your next favorite book every time you visit.
+                </p>
+                <a href="{% url 'home' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                    Explore More Books
+                </a>
+            </section>
+        {% endif %}
+        <!-- Call to Action -->
+        {% if not user.is_authenticated %}
+            <div class="div min-h-auto mb-6">
+                <section class="text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Library Today</h3>
+                    <p class="text-gray-700 mb-6">
+                        Whether you're a reader or a contributor, our library has something for everyone. Start now!
+                    </p>
+                    <a href="{% url 'signup' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                        Get Started
+                    </a>
+                </section>
+            </div>
+        {% endif %}
+
+        <!-- Featured Categories Section -->
+        <section class="mb-12">
+            {% if categories %}
+                <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Book Categories</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    
+                    {% for category in categories %}
+                        <a href="{% url 'view_category' 1 %}">
+                            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
+                                <img src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8466f4d7-b3bb-430b-96ef-34bf3c5521ea_716x716.jpeg {{ category.image.url }}" alt="{{ category.name }}" class="rounded-2xl w-32 h-32 object-cover mx-auto mb-3">
+                                <p class="text-xl font-semibold text-gray-700"> Jishir {{ category.name }}</p>
+                            </div>  
+                        </a>          
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Featured Books Section -->
+        <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-10 rounded-lg cute-shadow text-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Featured Books</h2>
+            {% if books %}
+                <p class="text-lg text-gray-700 mb-8">
+                    Explore our top-rated books, handpicked by our team. Find your next read today!
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {% for book in books %}
+                    <div class="p-6 bg-white rounded-2xl shadow-xl transform scale-100">
+                        <img src="https://typli.ai/_next/image?url=%2Fbook-name-generator.png&w=1200&q=75 {{ book.cover_image.url }}" alt="Book Thumbnail" class="w-full h-60 object-cover rounded-t-2xl mb-6">
+                    
+                        <h3 class="text-2xl font-extrabold text-gray-800 my-2"> Restart My Life/Heart </h3>
+                        
+                        <div class="bg-white rounded-lg shadow-md mb-4">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>
+                            <div class="space-y-1 pb-2">
+                                <p class="text-lg font-medium text-gray-600">
+                                    <span class="text-gray-700 font-semibold">Author:</span> 
+                                    <span class="text-teal-600">Sishir Siam{{ book.author }}</span>
+                                </p>
+                                <p class="text-lg font-medium text-gray-600">
+                                    <span class="text-gray-700 font-semibold">Genre:</span> 
+                                    <span class="text-teal-600">Pride and Prejudice by Jane Austen.{{ book.genre }}</span>
+                                </p>
+                                <p class="text-lg font-medium text-gray-600">
+                                    <span class="text-gray-700 font-semibold">Price:</span> 
+                                    <span class="text-teal-600">$199{{ book.price }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <a href="{% url 'view_book' book %}" 
+                            class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full 
+                                    hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-10 hover:rotate-3 
+                                    transition-all duration-300 ease-in-out shadow-lg transform" >
+                            View Details
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500 text-center text-3xl">No books available at the moment. Please check back later!</p>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

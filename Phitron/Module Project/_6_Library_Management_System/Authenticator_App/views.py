@@ -109,3 +109,5 @@ def change_password(request):
     
     return render(request, 'change_password.html', context)
     
+def help(request):
+    return redirect('home')

@@ -3,89 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CurHub BD - {% block title %} Home {% endblock %}</title>
+    <title>Jishir Haven Library - {% block title %} Home {% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
         .cute-shadow {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+        p {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+        }
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        input, textarea {
+            font-family: 'Roboto', sans-serif;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-b from-blue-100 to-white">
-    <nav class="bg-pink-200 p-4 cute-shadow">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <a href="/" class="text-2xl font-bold text-pink-600 hover:text-pink-700">
-                CurHub BD
-            </a>
+<body class="bg-gradient-to-b from-gray-100 to-gray-200 ">
     
-            <!-- Mobile Toggle Button -->
-            <button 
-                class="lg:hidden text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
-                type="button"
-                aria-controls="navbar-content"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                onclick="toggleNavbar()"
-            >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-    
-            <!-- Navbar Content -->
-            <div id="navbar-content" class="hidden lg:flex space-x-6">
-                <ul class="flex items-center space-x-4">
-                    <!-- Home -->
-                    <li>
-                        <a href="{% url 'home' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
-                            <i class="fas fa-home mr-2"></i> Home
-                        </a>
-                    </li>
-                    
-                    <!-- Authenticated Links -->
-                    {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'profile' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
-                            <i class="fas fa-user mr-2"></i> Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'logout' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                        </a>
-                    </li>
-                    {% else %}
-                    <!-- Guest Links -->
-                    <li>
-                        <a href="{% url 'login' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
-                            <i class="fas fa-sign-in-alt mr-2"></i> Login
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'signup' %}" class="flex items-center text-pink-600 font-semibold px-4 py-2 rounded hover:bg-pink-300 hover:text-pink-700 transition duration-300">
-                            <i class="fas fa-user-plus mr-2"></i> SignUp
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
+    {% include 'navbar.html' %}
+
+    <!-- Main Content -->
+    <div class="bg-gradient-to-b from-gray-100 to-gray-200 flex flex-col items-center mb-3">
+        
+        {% block content %}
+        <header class="text-center py-6">
+            <h1 class="text-4xl font-bold text-indigo-700">Welcome to Jishir Haven Library</h1>
+            <p class="text-gray-600 mt-2">Your gateway to knowledge and learning. Explore books and manage your library account.</p>
+        </header>
+
+        
+        <!-- Dynamic Content Block -->
+        <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Welcome to Jishir Haven Library</h2>
+            <p class="text-gray-600 mb-6">At Jishir Haven, we provide a vast collection of educational resources and books that empower students to explore new subjects, expand their knowledge, and enhance their skills. Whether you're looking for textbooks, fiction, or self-improvement books, we have something for everyone!</p>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Why Choose Jishir Haven Library?</h3>
+            <ul class="list-disc pl-6 text-gray-600 mb-4">
+                <li>Access to thousands of books across multiple genres and subjects.</li>
+                <li>Personalized recommendations based on your reading history and preferences.</li>
+                <li>Easy book borrowing and management of your account.</li>
+                <li>Regular updates with new titles and learning materials.</li>
+            </ul>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Start Exploring!</h3>
+            <p class="text-gray-600">Browse our collection and find the perfect book for your next read. Our user-friendly interface ensures a smooth and efficient browsing experience.</p>
+            
+            <div class="mt-6 text-center">
+                <a href="{% url 'home' %}" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300">Browse Books</a>
             </div>
         </div>
-    </nav>
-    
-
-    <div class="min-h-screen bg-gradient-to-b from-blue-100 to-white flex flex-col justify-center items-center">
-        {% block content %}
-            
-        {% endblock content %}
+        {% endblock %}
     </div>
-    <footer class="text-center text-gray-500 text-xs mb-5">
-        &copy;2024 CurHub BD. All rights reserved.
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-600 text-sm py-2 mt-5 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <p>&copy;2024 Jishir Haven Library. All rights reserved.</p>
+        </div>
     </footer>
 
+    <!-- Navbar Toggle Script -->
+    <script>
+        function toggleNavbar() {
+            const navbarContent = document.getElementById('navbar-content');
+            navbarContent.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>

@@ -9,4 +9,5 @@ urlpatterns = [
     path('login/', Authenticator_App_Views.login_page, name='login'),
     path('logout/', Authenticator_App_Views.logout_page, name='logout'),
     path('signup/', Authenticator_App_Views.signup_page, name='signup'),
+    path('help/', Authenticator_App_Views.signup_page, name='help'),
 ]
