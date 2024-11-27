@@ -1,12 +1,12 @@
 from django.shortcuts import redirect, render
-
+from .models import User, Book, Categorie
 
 
 
 def home(request):
     context = {
-        'books' : [1, 2, 3, 4, 5],
-        'categories' : [1, 2, 3, 4, 5, 6, 7],
+        'books' : Book.objects.all(),
+        'categories' : Categorie.objects.all(),
         'is_additional_content' : 0,
     }
     return render(request, 'home.html', context)

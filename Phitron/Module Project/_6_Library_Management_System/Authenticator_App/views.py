@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import authenticate, login, logout
 
+from . models import User
 
 def signup_page(request):
     if request.user.is_authenticated:
