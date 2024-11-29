@@ -2,103 +2,111 @@
 
 {% block content %}
     {% if message %}
-        <div class="text-center mb-4 text-lg font-semibold text-blue-600">
+        <div class="text-center mb-6 text-lg font-semibold text-blue-600">
             {{ message }}
         </div>
     {% endif %}
 
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4">
+        <!-- Additional Content Section -->
         {% if is_additional_content %}
-            <!-- Additional Content Section -->
-            <section class="mb-12 text-center text-lg">
+            <section class="mb-12 text-center">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Our Library?</h3>
-                <p class="text-gray-700 mb-6">
+                <p class="text-gray-700 mb-6 leading-relaxed">
                     Our library offers a wide variety of books across all genres. Whether you're looking for fiction, non-fiction, educational resources, or self-improvement books, we have something for everyone!
                 </p>
-                <p class="text-gray-700 mb-6">
+                <p class="text-gray-700 mb-6 leading-relaxed">
                     With regular updates to our collection, you're sure to find your next favorite book every time you visit.
                 </p>
-                <a href="{% url 'home' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
+                <a href="{% url 'home' %}" 
+                   class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105">
                     Explore More Books
                 </a>
             </section>
         {% endif %}
+
         <!-- Call to Action -->
         {% if not user.is_authenticated %}
-            <div class="div min-h-auto mb-6">
-                <section class="text-center">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Library Today</h3>
-                    <p class="text-gray-700 mb-6">
-                        Whether you're a reader or a contributor, our library has something for everyone. Start now!
-                    </p>
-                    <a href="{% url 'signup' %}" class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition duration-300">
-                        Get Started
-                    </a>
-                </section>
-            </div>
+            <section class="text-center bg-blue-100 p-8 rounded-lg shadow-lg mb-12">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Join the Library Today</h3>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                    Whether you're a reader or a contributor, our library has something for everyone. Start now!
+                </p>
+                <a href="{% url 'signup' %}" 
+                   class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105">
+                    Get Started
+                </a>
+            </section>
         {% endif %}
 
         <!-- Featured Categories Section -->
-        <section class="mb-12">
-            {% if categories %}
-                <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Book Categories</h2>
+        {% if categories %}
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Book Categories</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                    
                     {% for category in categories %}
-                        <a href="{% url 'view_category' 1 %}">
-                            <div class="text-center p-4 bg-white rounded-lg shadow-md hover:scale-105 transition-all duration-300">
-                                <img src="{{ category.img.url }}" alt="{{ category.name }}" class="rounded-2xl w-32 h-32 object-cover mx-auto mb-3">
-                                <p class="text-xl font-semibold text-gray-700">{{ category.name }}</p>
-                            </div>  
-                        </a>          
+                        <a href="{% url 'view_category' category.id %}" class="text-center">
+                            <div class="bg-white p-4 rounded-lg shadow-md hover:scale-105 transition-transform transform">
+                                <img src="{{ category.img.url }}" alt="{{ category.name }}" 
+                                     class="rounded-2xl w-32 h-32 object-cover mx-auto mb-3">
+                                <p class="text-lg font-semibold text-gray-700">{{ category.name }}</p>
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
-            {% endif %}
-        </section>
+            </section>
+        {% endif %}
 
         <!-- Featured Books Section -->
-        <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-10 rounded-lg cute-shadow text-center mb-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Featured Books</h2>
+        <section class="bg-gradient-to-r from-blue-200 to-pink-100 p-8 rounded-lg shadow-lg mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Featured Books</h2>
             {% if books %}
-                <p class="text-lg text-gray-700 mb-8">
+                <p class="text-lg text-gray-700 mb-8 text-center leading-relaxed">
                     Explore our top-rated books, handpicked by our team. Find your next read today!
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     {% for book in books %}
-                    <div class="p-6 bg-white rounded-2xl shadow-xl transform scale-100">
-                        <img src="{{ book.img.url }}" alt="{{ book.name }}" class="w-full h-60 object-cover rounded-t-2xl mb-6">
-                    
-                        <h3 class="text-2xl font-extrabold text-gray-800 my-2"> {{ book.name }} </h3>
-                        
-                        <div class="bg-white rounded-lg shadow-md mb-4">
-                            <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>
-                            <div class="space-y-1 pb-2">
+                        <div class="p-6 bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                            <img src="{{ book.img.url }}" alt="{{ book.name }}" 
+                                 class="w-full h-60 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-2xl font-extrabold text-gray-800 mb-2">{{ book.name }}</h3>
+                            <div class="bg-gray-100 rounded-lg p-4 mb-4">
                                 <p class="text-lg font-medium text-gray-600">
-                                    <span class="text-gray-700 font-semibold">Author:</span> 
+                                    <span class="font-semibold text-gray-700">Author:</span> 
                                     <span class="text-teal-600">{{ book.author }}</span>
                                 </p>
                                 <p class="text-lg font-medium text-gray-600">
-                                    <span class="text-gray-700 font-semibold">Genre:</span> 
+                                    <span class="font-semibold text-gray-700">Genre:</span> 
                                     <span class="text-teal-600">{{ book.genre }}</span>
                                 </p>
-                                <p class="text-lg font-medium text-gray-600">
-                                    <span class="text-gray-700 font-semibold">Price:</span> 
+                                {% if book.categories.exists %}
+                                    <div class="flex items-center space-x-4 mt-2">
+                                        <p class="text-lg font-medium text-gray-600">Tag:</p>
+                                        <div class="flex flex-wrap gap-3">
+                                            {% for category in book.categories.all %}
+                                                <a href="{% url 'view_category' category.id %}" 
+                                                class="py-1 px-4 bg-blue-500 text-white text-sm font-semibold rounded-full shadow-md 
+                                                        hover:bg-blue-600 transition-transform transform hover:scale-105">
+                                                    {{ category.name }}
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <p class="text-lg font-medium text-gray-600 mt-2">
+                                    <span class="font-semibold text-gray-700">Price:</span> 
                                     <span class="text-teal-600">{{ book.price }}</span>
                                 </p>
                             </div>
+                            <a href="{% url 'view_book' book.id %}" 
+                               class="block py-2 px-4 bg-teal-500 text-white text-center font-semibold rounded-lg hover:bg-teal-600 transition-transform transform hover:scale-105">
+                                View Details
+                            </a>
                         </div>
-                        
-                        <a href="{% url 'view_book' book.id %}" 
-                            class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full 
-                                    hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-10 hover:rotate-3 
-                                    transition-all duration-300 ease-in-out shadow-lg transform" >
-                            View Details
-                        </a>
-                    </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <p class="text-gray-500 text-center text-3xl">No books available at the moment. Please check back later!</p>
+                <p class="text-gray-500 text-center text-xl">No books available at the moment. Please check back later!</p>
             {% endif %}
         </section>
     </div>

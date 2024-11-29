@@ -2,7 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import authenticate, login, logout
 
-from . models import User
+from Library_App.models import Book
+from . models import User, UserAccount
 
 def signup_page(request):
     if request.user.is_authenticated:
@@ -30,6 +31,14 @@ def signup_page(request):
                 first_name = first_name, last_name = last_name,
                 username = username, email = email, password = password)
             NewUser.save()
+            user_profile = UserAccount.objects.create(
+                user=NewUser,
+                user_id=NewUser.id
+            )            
+            user_profile.save()
+
+            print('-> User created successfully')
+
             return redirect('login')
 
     return render(request, 'signup.html', context)
@@ -63,9 +72,9 @@ def profile_page(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    # Purchases = Purchase.objects.filter(user=request.user).order_by('-id')
+    Purchases = Book.objects.all().order_by('-id')
     context = {
-        # 'Purchases' : Purchases,
+        'Purchases' : Purchases,
     }
     return render(request, 'profile.html', context)
 
