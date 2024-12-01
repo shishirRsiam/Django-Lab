@@ -1,6 +1,6 @@
+from .models import Book, Categorie, Borrow, Comment
 from django.shortcuts import redirect, render
-from .models import User, Book, Categorie, Borrow, Comment
-
+from django.contrib import messages
 from decimal import Decimal
 
 def home(request):
@@ -8,9 +8,20 @@ def home(request):
         'books' : Book.objects.all(),
         'categories' : Categorie.objects.all(),
         'is_additional_content' : 0,
+        'header_text' : 'Featured Books',
     }
     return render(request, 'home.html', context)
 
+def view_books_filter_by_category(request, category_id):
+    category = Categorie.objects.get(id=category_id)
+    books = Book.objects.filter(categories=category)
+    context = {
+        'books' : books,
+        'categories' : Categorie.objects.all(),
+        'is_additional_content' : 0,
+        'header_text' : f"'{category.name}' Featured Books",
+    }
+    return render(request, 'home.html', context)
 
 def view_book(request, id):
     book = Book.objects.get(id=id)
@@ -37,19 +48,6 @@ def view_book(request, id):
         comment.save()
 
     return render(request, 'view_book_info.html', context)
-
-
-def view_books_filter_by_category(request, category_id):
-    # brand = Brand.objects.get(id=brand_id)
-    # cars = Car.objects.filter(brand=brand_id)
-    context = {
-        # 'header_text' : f"'{brand.name}' Featured Cars for Sale",
-        # 'Brands' : Brand.objects.all(),
-        # 'Cars' : cars,
-        # 'projects' : [1, 2, 3],
-    }
-    # return render(request, 'home.html', context)
-    return redirect('home')
 
 def borrow_book(request, id):
     if not request.user.is_authenticated:
@@ -93,8 +91,6 @@ def add_funds(request):
     return render(request, 'add_funds.html', context)
     # return redirect('home')
 
-
-from django.contrib import messages
 def return_book(request, borrow_id):
     if not request.user.is_authenticated:
         return redirect('home')
@@ -117,7 +113,4 @@ def return_book(request, borrow_id):
         messages.error(request, 'You are not authorized to return this book.')
 
     return redirect('profile')
-
-
-
 

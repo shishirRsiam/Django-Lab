@@ -66,26 +66,26 @@ WSGI_APPLICATION = 'Library_Management_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-# DATABASES['default'] = dj_database_url.config(default=credentials.DJ_DATABASE_URL)
-
 DATABASES = {
     'default': {
-        'ENGINE': credentials.DATABASE_ENGINE,
-        'NAME': credentials.DATABASE_NAME,
-        'USER': credentials.DATABASE_USER,
-        'PASSWORD': credentials.DATABASE_PASSWORD,
-        'HOST': credentials.DATABASE_HOST,
-        'PORT': credentials.DATABASE_PORT,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config(default=credentials.DJ_DATABASE_URL)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': credentials.DATABASE_ENGINE,
+#         'NAME': credentials.DATABASE_NAME,
+#         'USER': credentials.DATABASE_USER,
+#         'PASSWORD': credentials.DATABASE_PASSWORD,
+#         'HOST': credentials.DATABASE_HOST,
+#         'PORT': credentials.DATABASE_PORT,
+#     }
+# }
 
 
 # Password validation
