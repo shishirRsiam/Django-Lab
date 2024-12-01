@@ -23,7 +23,7 @@
         <div id="navbar-content" class="hidden lg:flex space-x-6">
             <ul class="flex items-center space-x-4">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'home' %}" 
+                    <a href="{% url 'add_funds' %}" 
                         class="flex items-center px-4 py-3 text-lg font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 
                             hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out">
                         <i class="fas fa-wallet mr-3"></i> 
@@ -34,18 +34,18 @@
                         </span>
                     </a>
                 {% endif %}
-                <li>
+                <!-- <li>
                     <a href="{% url 'home' %}" class="flex items-center text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
                         <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                </li> -->
+                <li>
+                    <a href="{% url 'home' %}" class="flex items-center text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
+                        <i class="fas fa-book mr-2"></i> Browse Books
                     </a>
                 </li>
                 
                 {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'home' %}" class="flex items-center text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
-                            <i class="fas fa-book mr-2"></i> Browse Books
-                        </a>
-                    </li>
                     <li>
                         <a href="{% url 'profile' %}" class="flex items-center text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition duration-300">
                             <i class="fas fa-user-circle mr-2"></i> My Account

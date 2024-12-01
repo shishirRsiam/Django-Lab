@@ -2,8 +2,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib import messages
 from Library_App.models import Book
 from . models import User, UserAccount
+
 
 def signup_page(request):
     if request.user.is_authenticated:
@@ -56,7 +58,11 @@ def login_page(request):
         user = authenticate(username = username, password = password)
         if user:
             login(request, user)
-            return redirect('home')
+
+            message = 'You have been logged in successfully'
+            messages.success(request, message)
+            return redirect('profile')
+        
         context['error_msg'] = "Invalid username or password!"        
 
     return render(request, 'login.html', context)
@@ -72,9 +78,9 @@ def profile_page(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    Purchases = Book.objects.all().order_by('-id')
+    Borrows = request.user.borrowed_books.all().order_by('-id')
     context = {
-        'Purchases' : Purchases,
+        'Borrows' : Borrows,
     }
     return render(request, 'profile.html', context)
 
@@ -88,6 +94,9 @@ def edit_profile(request):
         request.user.first_name = request.POST['first_name']
         request.user.last_name = request.POST['last_name']
         request.user.save()
+
+        message = 'Profile updated successfully'
+        messages.success(request, message)
         return redirect('profile')
 
     context = {}
@@ -114,6 +123,9 @@ def change_password(request):
             request.user.save()
 
             update_session_auth_hash(request, request.user)
+
+            message = 'Password changed successfully'
+            messages.success(request, message)
             return redirect('profile')
     
     return render(request, 'change_password.html', context)

@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import User, Book, Categorie, Borrow
+from .models import User, Book, Categorie, Borrow, Comment
 
 from decimal import Decimal
 
@@ -11,14 +11,30 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+
 def view_book(request, id):
-    print("-> Book ID:", id)
-    categories = Categorie.objects.all()
     book = Book.objects.get(id=id)
+    comments = book.comments.all().order_by('-id')
+
+    can_review = False
+    if request.user.is_authenticated:
+        can_review = request.user.borrowed_books.filter(book=book)
+
     context = {
         'book': book,
-        'categories': categories,
+        'comments' : comments,
+        'can_review' : can_review,
     }
+
+    if request.method == 'POST':
+        text = request.POST.get('comment')
+        
+        comment = Comment.objects.create(
+            user=request.user,
+            book=book,
+            comment_text=text
+        )
+        comment.save()
 
     return render(request, 'view_book_info.html', context)
 
@@ -39,7 +55,6 @@ def borrow_book(request, id):
     if not request.user.is_authenticated:
         return redirect('home')
 
-    print('(-)'*20)
     book = Book.objects.get(id=id)
     book.available_copies -= 1
     book.save()
@@ -54,7 +69,9 @@ def borrow_book(request, id):
         price=book.price) 
     borrow.save()
 
-    print('(-)'*20)
+    message = f"You have borrowed '{book.name}' for ${book.price}."
+    messages.success(request, message)
+
     return redirect('profile')
 
 def add_funds(request):
@@ -65,6 +82,9 @@ def add_funds(request):
         amount = request.POST.get('amount')
         request.user.account.balance += Decimal(amount)
         request.user.account.save()
+
+        message = f'You have added ${amount} to your account.'
+        messages.success(request, message)
         return redirect('profile')
 
     context = {
@@ -72,3 +92,32 @@ def add_funds(request):
     }
     return render(request, 'add_funds.html', context)
     # return redirect('home')
+
+
+from django.contrib import messages
+def return_book(request, borrow_id):
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    borrow = Borrow.objects.get(id=borrow_id)
+    if borrow.user == request.user:
+        borrow.book.available_copies += 1
+        borrow.book.save()
+
+        borrow.user.account.balance += borrow.price
+        borrow.user.account.save()
+
+        borrow.is_returned = True
+        borrow.after_balance = borrow.user.account.balance
+        borrow.save()
+
+        message = f"'{borrow.book.name}' has been returned successfully. Added ${borrow.price} to your account."
+        messages.success(request, message)
+    else:
+        messages.error(request, 'You are not authorized to return this book.')
+
+    return redirect('profile')
+
+
+
+
