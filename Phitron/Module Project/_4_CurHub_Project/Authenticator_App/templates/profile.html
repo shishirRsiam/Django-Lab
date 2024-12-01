@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.first_name }} {{ user.last_name }} | CurHub{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-8">
+
+    <!-- Welcome Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900">Hello, {{ user.first_name }} {{ user.last_name }}!</h1>
+        <p class="mt-3 text-lg text-gray-600">Manage your account, explore your wishlist, and purchase your dream car.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Account Information Section -->
+        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">Account Information</h2>
+            <p class="text-gray-800"><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p class="text-gray-800"><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p class="text-gray-800"><strong>Username:</strong> {{ user.username }}</p>
+            <p class="text-gray-800"><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <!-- Profile Settings Section -->
+        <div class="bg-gradient-to-r from-teal-50 to-teal-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between">
+            <h2 class="text-2xl font-bold text-teal-700 mb-6">Profile Settings</h2>
+            <p class="text-gray-800">Manage your personal preferences and customize your profile details to reflect your identity.</p>
+            <a href="{% url 'edit_profile' %}" class="inline-block mt-6 px-6 py-2 bg-teal-600 text-white font-semibold rounded-md text-center hover:bg-teal-700">Edit Profile</a>
+        </div>
+
+        <!-- Change Password Section -->
+        <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between">
+            <h2 class="text-2xl font-bold text-red-700 mb-6">Change Password</h2>
+            <p class="text-gray-800">For security, regularly updating your password is recommended to keep your account safe.</p>
+            <a href="{% url 'change_password' %}" class="inline-block mt-6 px-6 py-2 bg-red-600 text-white font-semibold rounded-md text-center hover:bg-red-700">Update Password</a>
+        </div>
+
+    </div>
+
+    <!-- Wishlist Section -->
+    <!-- <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl shadow-xl p-6 mt-8">
+        <h2 class="text-2xl font-bold text-yellow-700 mb-6">Your Wishlist</h2>
+        {% if user.wishlist.all %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for car in user.wishlist.all %}
+                <div class="p-6 bg-white rounded-2xl shadow-xl">
+                    <img src="{{ car.image_url }}" alt="{{ car.model }}" class="w-full h-60 object-cover rounded-t-2xl mb-6">
+                    <h3 class="text-xl font-extrabold text-gray-800 mb-4">{{ car.model }}</h3>
+                    <p class="text-xl font-semibold text-gray-700">Brand: <span class="text-teal-500">{{ car.brand }}</span></p>
+                    <p class="text-xl font-semibold text-gray-700">Price: <span class="text-teal-500">{{ car.price }} Taka</span></p>
+                    <a href="{% url 'view_info' car.id %}" class="inline-block py-2 px-6 bg-teal-500 text-white font-semibold rounded-full hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 hover:scale-110 transition-all duration-300 ease-in-out shadow-lg transform">View Details</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-lg text-gray-600">Your wishlist is empty. Start adding your favorite cars!</p>
+        {% endif %}
+    </div> -->
+
+    <!-- Budget Section -->
+    <!-- <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl shadow-xl p-6 mt-8">
+        <h2 class="text-2xl font-bold text-green-700 mb-6">Your Budget</h2>
+        <p class="text-xl text-gray-800">Set your preferred price range for easy browsing of cars within your budget.</p>
+        <p class="text-lg text-gray-600 mt-4"><strong>Min Budget:</strong> {{ user.min_budget }} Taka</p>
+        <p class="text-lg text-gray-600 mt-2"><strong>Max Budget:</strong> {{ user.max_budget }} Taka</p>
+        <a href="{% url 'home' %}" class="inline-block mt-6 px-6 py-2 bg-green-600 text-white font-semibold rounded-md text-center hover:bg-green-700">Edit Budget</a>
+    </div> -->
+
+    <!-- Purchase History Section -->
+    <!-- <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-xl p-6 mt-8">
+        <h2 class="text-2xl font-bold text-purple-700 mb-6">Purchase History</h2>
+        {% if user.purchases.all %}
+            <ul class="list-disc pl-6">
+                {% for purchase in user.purchases.all %}
+                <li class="text-lg text-gray-800 mb-4">
+                    <strong>{{ purchase.car.model }} Toyota</strong> - {{ purchase.date }} - <span class="text-teal-500">{{ purchase.price }} Taka</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-lg text-gray-600">You haven't made any purchases yet.</p>
+        {% endif %}
+    </div> -->
+
+    
+    <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl shadow-xl p-6 mt-8">
+        <h2 class="text-2xl font-bold text-purple-700 mb-6">Purchase History</h2>
+    
+        {% if Purchases %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for Purchase in Purchases %}
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <!-- Car Image -->
+                    <img src="{{ Purchase.car.image.url }}" alt="{{ Purchase.car.name }} Toyota ({{Purchase.car.year}})" class="w-full h-60 object-cover">
+    
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">{{ Purchase.car.name }} Toyota ({{Purchase.car.year}})</h3>
+                        </div>
+                        
+                        <p class="text-gray-600 text-lg">Price: <span class="text-teal-500 font-bold">${{ Purchase.car.price }}</span></p>
+                        <p class="text-gray-600 text-lg">Date: {{ Purchase.created_at }}</p>
+                        <a href="{% url 'view_info' Purchase.car.id %}" class="inline-block mt-4 px-6 py-2 bg-teal-600 text-white font-semibold rounded-md text-center hover:bg-teal-700 transition-all duration-300 ease-in-out">View Details</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- View More Button -->
+            <!-- <div class="text-center mt-6">
+                <a href="#" class="inline-block px-8 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-300 ease-in-out">
+                    View More...
+                </a>
+            </div> -->
+        {% else %}
+            <p class="text-lg text-gray-600">You haven't made any purchases yet.</p>
+        {% endif %}
+    </div>
+    
+
+</div>
+{% endblock %}
