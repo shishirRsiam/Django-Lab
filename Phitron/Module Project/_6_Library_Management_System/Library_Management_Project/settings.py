@@ -15,13 +15,14 @@ SECRET_KEY = credentials.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app",]
 
 
 MEDIA_URL = '/media/'  # The base public URL for media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')  # The directory to store uploaded files
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Library_Management_Project.wsgi.application'
+WSGI_APPLICATION = 'Library_Management_Project.wsgi.app'
 
 
 # Database
@@ -77,6 +78,8 @@ WSGI_APPLICATION = 'Library_Management_Project.wsgi.application'
 
 # DATABASES = {}
 # DATABASES['default'] = dj_database_url.config(default=credentials.DJ_DATABASE_URL)
+
+
 
 DATABASES = {
     'default': {

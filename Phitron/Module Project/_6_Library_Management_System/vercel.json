@@ -1,0 +1,13 @@
+{
+    "builds": [{
+      "src": "Library_Management_Project/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
+    }],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "Library_Management_Project/wsgi.py"
+      }
+    ]
+}
