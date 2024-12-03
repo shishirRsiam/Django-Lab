@@ -85,7 +85,7 @@
             
         <!-- Recent Transactions Section -->
         <div class="mt-10 p-6 bg-white shadow-lg rounded-lg">
-            <h2 class="text-2xl font-bold text-purple-700 mb-6">Purchase History</h2>
+            <h2 class="text-2xl font-bold text-purple-700 mb-6">Borrow History</h2>
             
             {% if request.user.borrowed_books.all %}
                 <div class="overflow-x-auto">
@@ -137,7 +137,7 @@
                     </a>
                 </div> -->
             {% else %}
-                <p class="text-lg text-gray-600">You haven't made any purchases yet.</p>
+                <p class="text-lg text-gray-600">You haven't made any Borrow yet.</p>
             {% endif %}
         </div>
             

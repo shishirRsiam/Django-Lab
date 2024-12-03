@@ -1,3 +1,61 @@
 
 /Media/
 
+
+
+
+
+
+https://leetcode.com/graphql?query=query
+{     
+      userContestRanking(username:  "YOUR_USERNAME") 
+      {
+        attendedContestsCount
+        rating
+        globalRanking
+        totalParticipants
+        topPercentage    
+      }
+      userContestRankingHistory(username: "YOUR_USERNAME")
+      {
+        attended
+        trendDirection
+        problemsSolved
+        totalProblems
+        finishTimeInSeconds
+        rating
+        ranking
+        contest 
+        {
+          title
+          startTime
+        }
+      }
+} 
+
+https://leetcode.com/graphql?query=query
+{     
+      userContestRanking(username:  "shishirRsiam") 
+      {
+        attendedContestsCount
+        rating
+        globalRanking
+        totalParticipants
+        topPercentage    
+      }
+      userContestRankingHistory(username: "shishirRsiam")
+      {
+        attended
+        trendDirection
+        problemsSolved
+        totalProblems
+        finishTimeInSeconds
+        rating
+        ranking
+        contest 
+        {
+          title
+          startTime
+        }
+      }
+} 
