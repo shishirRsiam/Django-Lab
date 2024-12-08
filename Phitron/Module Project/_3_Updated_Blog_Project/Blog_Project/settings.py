@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'Authenticator_App',
     'Categories_App',
     'Post_App',
+    'Comment_App',
 ]
 
 MIDDLEWARE = [

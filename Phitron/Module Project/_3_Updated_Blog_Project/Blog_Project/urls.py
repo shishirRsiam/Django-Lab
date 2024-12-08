@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', PostAppViews.home, name='home'),
+    path('posts/<int:page_no>', PostAppViews.home_post_by_page, name='home_post_by_page'),
     path('add/post', PostAppViews.add_post, name='addpost'),
     path('post/<slug:url>/', PostAppViews.view_post, name='viewpost'),
     path('category/<slug:slug>/', PostAppViews.view_post_by_category, name='viewpostbycategory'),

@@ -18,7 +18,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app",]
 
 
-MEDIA_URL = '/media/'  # The base public URL for media files
+MEDIA_URL = '/Media/'  # The base public URL for media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')  # The directory to store uploaded files
 
 INSTALLED_APPS = [
@@ -133,3 +133,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# settings.py
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Replace "BASE_DIR" with your project root directory.
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # For production (optional)

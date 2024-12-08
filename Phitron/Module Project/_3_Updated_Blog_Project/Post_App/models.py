@@ -25,11 +25,9 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug_url:
             self.slug_url = slugify(self.title)
-            print("&*"*40)
+
             if not self.slug_url or Post.objects.filter(slug_url=self.slug_url).exists():
                 self.slug_url += str(uuid.uuid4())
-            print(self.slug_url)
-            print("&*"*40)
         super(Post, self).save(*args, **kwargs)
 
 

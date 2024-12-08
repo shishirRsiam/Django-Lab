@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from Categories_App.models import Categories
-from .models import Post
+from .models import *
+from .helper import *
+from Comment_App.models import *
 from django.contrib.auth.models import User
 
 def home(request):
@@ -8,18 +10,19 @@ def home(request):
         'top_post' : get_most_viewed_post(),
         'title_text' : 'Posts',
         'categories' : Categories.objects.all(),
-        'posts' : Post.objects.all(),
+        'posts' : get_post_by_page(1), 
+        'post_count' : Post.objects.all().count(),
+        'prev_page' : 0,
+        'cur_page' : 1,
+        'next_page' : 2,
     }
+    print(context['post_count'])
 
     if request.user.is_authenticated:
         return render(request, 'authenticated_home.html', context)
     
     return render(request, 'authenticated_home.html', context)
     # return render(request, 'home.html', context)
-
-def get_most_viewed_post():
-    post = Post.objects.order_by('-views')[:5]
-    return post
 
 
 def view_post_by_category(request, slug):
@@ -37,7 +40,6 @@ def view_post_by_category(request, slug):
     
     # return redirect('home')
     return render(request, 'authenticated_home.html', context)
-
 
 def add_post(request):
     if not request.user.is_authenticated:
@@ -68,6 +70,23 @@ def add_post(request):
 
     return render(request, 'add_post.html', context)
 
+def home_post_by_page(request, page_no):
+    context = {
+        'top_post' : get_most_viewed_post(),
+        'title_text' : 'Posts',
+        'categories' : Categories.objects.all(),
+        'posts' : get_post_by_page(page_no), 
+        'post_count' : Post.objects.all().count(),
+        'prev_page' : page_no - 1,
+        'cur_page' : page_no,
+        'next_page' : page_no + 1,
+    }
+    if context['cur_page'] * 8 >= context['post_count']:
+        context['next_page'] = None
+
+    print(context['post_count'])
+    return render(request, 'authenticated_home.html', context)
+
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
@@ -79,11 +98,23 @@ def view_post(request, url):
     
     post.views += 1
     post.save()
+
+    comments = post.comments.all().order_by('-id')
     context = {
         'post' : post,
+        'comments' : comments,
     }
-    return render(request, 'view_post.html', context)
 
+    if request.method == 'POST':
+        text = request.POST.get('comment')
+        
+        comment = Comment.objects.create(
+            user=request.user,
+            post=post,
+            comment_text=text
+        )
+        comment.save()
+    return render(request, 'view_post.html', context)
 
 def edit_post(request, slug_url):
     post = get_object_or_404(Post, slug_url=slug_url)
