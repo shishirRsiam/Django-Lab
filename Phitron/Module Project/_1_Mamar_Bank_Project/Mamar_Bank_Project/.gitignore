@@ -1,9 +1,0 @@
-# Secret settings
-.env
-
-# Django stuff
-db.sqlite3
-
-credentials.py
-
-.env 
