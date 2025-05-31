@@ -35,3 +35,16 @@
 31-05-2025 23:44:20  419  docker-compose up --build
 31-05-2025 23:44:36  420  docker-compose up --build
 31-05-2025 23:47:11  421  git add .gitignore 
+31-05-2025 23:47:25  422  git commit -am"add .gitignore file"
+31-05-2025 23:47:34  423  git push
+31-05-2025 23:51:34  424  git push
+01-06-2025 00:08:19  392  "New Terminal"
+01-06-2025 00:08:19  392  "New Terminal"
+01-06-2025 00:11:30  392  "New Terminal"
+01-06-2025 00:11:46  393  docker ps
+01-06-2025 00:12:32  394  docker exec -it django_cron_app cat /app/cron_log.txt
+01-06-2025 00:12:54  395  docker exec -it 90ea50972cc5 cat /app/cron_log.txt
+01-06-2025 00:16:05  396  docker compose down --volumes --remove-orphans
+01-06-2025 00:18:32  397  docker system prune -af
+01-06-2025 00:42:11  398  docker compose up --build
+01-06-2025 00:42:17  399  git add .
