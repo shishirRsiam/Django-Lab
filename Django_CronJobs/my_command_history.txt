@@ -6,3 +6,32 @@
 31-05-2025 21:26:20  393  python manage.py runserver
 31-05-2025 21:29:00  394  python manage.py runserver
 31-05-2025 21:29:02  395  git add .
+31-05-2025 23:10:52  392  "New Terminal"
+31-05-2025 23:11:19  397  cd ..
+31-05-2025 23:11:21  398  ;s
+31-05-2025 23:11:23  399  ls
+31-05-2025 23:12:44  400  python manage.py runserver
+31-05-2025 23:12:56  401  python manage.py runserver
+31-05-2025 23:13:26  402  python manage.py runserver
+31-05-2025 23:13:37  403  pip install django-crontab
+31-05-2025 23:14:58  404  django-admin startapp Cron
+31-05-2025 23:18:47  405  python manage.py runserver
+31-05-2025 23:21:28  406  python manage.py runserver
+31-05-2025 23:21:40  407  python manage.py crontab add
+31-05-2025 23:27:11  408  docker ps
+31-05-2025 23:27:27  409  docker compose up --build
+31-05-2025 23:30:09  410  docker build -t django-cron-app .
+31-05-2025 23:31:59  411  docker run -p 8000:8000 django-cron-app
+31-05-2025 23:32:02  412  docker run -p 8000:8000 django-cron-app
+31-05-2025 23:32:04  413  docker run -p 8000:8000 django-cron-app
+31-05-2025 23:32:12  414  docker ps
+31-05-2025 23:32:22  415  docker stop django-cron-app
+31-05-2025 23:32:58  416  docker stop 391eed648b88
+31-05-2025 23:37:36  417  docker-compose up --build
+31-05-2025 23:41:59  392  "New Terminal"
+31-05-2025 23:42:11  393  docker exec -it django_cron_app
+31-05-2025 23:43:38  394  docker exec -it django_cron_app sh
+31-05-2025 23:44:06  418  docker-compose up --build
+31-05-2025 23:44:20  419  docker-compose up --build
+31-05-2025 23:44:36  420  docker-compose up --build
+31-05-2025 23:47:11  421  git add .gitignore 

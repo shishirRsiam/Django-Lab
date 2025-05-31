@@ -2,3 +2,7 @@
 31-05-2025 21:22:24  393  django-admin startproject Django_CronJobs
 31-05-2025 21:29:06  396  cd ..
 31-05-2025 21:29:08  397  git add .
+31-05-2025 21:29:27  398  git commit -am "add Django_CronJobs project"
+31-05-2025 21:29:31  399  git push
+31-05-2025 23:05:18  400  pip install django-cron
+31-05-2025 23:10:38  401  ls
