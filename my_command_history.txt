@@ -1,0 +1,4 @@
+31-05-2025 21:21:52  392  "New Terminal"
+31-05-2025 21:22:24  393  django-admin startproject Django_CronJobs
+31-05-2025 21:29:06  396  cd ..
+31-05-2025 21:29:08  397  git add .

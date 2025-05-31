@@ -1,0 +1,8 @@
+31-05-2025 21:22:33  394  cd Django_CronJobs/
+31-05-2025 21:22:58  392  "New Terminal"
+31-05-2025 21:23:03  392  "New Terminal"
+31-05-2025 21:25:41  392  "New Terminal"
+31-05-2025 21:25:55  393  python manage.py migrate
+31-05-2025 21:26:20  393  python manage.py runserver
+31-05-2025 21:29:00  394  python manage.py runserver
+31-05-2025 21:29:02  395  git add .
