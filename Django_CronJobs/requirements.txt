@@ -1,2 +1,3 @@
 Django
 django-crontab
+django-cron
