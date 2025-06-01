@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Cron', 'django_crontab', 
+    'Cron', 'django_crontab',
 ]
 
 MIDDLEWARE = [

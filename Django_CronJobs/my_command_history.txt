@@ -68,3 +68,6 @@
 02-06-2025 00:10:10  398  docker compose down
 02-06-2025 00:11:20  392  "New Terminal"
 02-06-2025 00:11:21  393  git add .
+02-06-2025 00:11:39  394  git commit -am "trying to setup cron using Class Based view"
+02-06-2025 00:11:43  395  git push
+02-06-2025 00:13:45  396  git add .
