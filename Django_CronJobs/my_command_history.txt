@@ -71,3 +71,45 @@
 02-06-2025 00:11:39  394  git commit -am "trying to setup cron using Class Based view"
 02-06-2025 00:11:43  395  git push
 02-06-2025 00:13:45  396  git add .
+02-06-2025 00:14:23  397  git commit -am "use function based view for better. class based view some problem
+git push
+"
+02-06-2025 00:14:28  398  git push
+03-06-2025 20:17:55  392  "New Terminal"
+03-06-2025 20:17:55  392  "New Terminal"
+03-06-2025 20:17:55  392  "New Terminal"
+03-06-2025 20:18:27  393  docker compose up
+03-06-2025 20:18:31  394  docker compose up
+03-06-2025 20:21:53  395  docker compose up --build
+03-06-2025 20:21:59  396  docker compose down
+03-06-2025 20:52:02  397  docker compose up --build
+03-06-2025 20:55:22  392  "New Terminal"
+03-06-2025 20:56:00  393  sh /f/GitHub/Django-Lab/Django_CronJobs/start_project.sh
+03-06-2025 21:00:36  394  docker build -t djangocron:latest .
+03-06-2025 21:00:47  395  docker images
+03-06-2025 21:01:39  396  docker save -o djangocron.tar djangocron:latest
+04-06-2025 09:04:33  392  "New Terminal"
+04-06-2025 09:04:33  392  "New Terminal"
+04-06-2025 09:04:33  392  "New Terminal"
+04-06-2025 09:04:34  392  "New Terminal"
+04-06-2025 09:07:37  392  "New Terminal"
+04-06-2025 09:07:37  392  "New Terminal"
+04-06-2025 09:07:37  392  "New Terminal"
+04-06-2025 09:07:38  392  "New Terminal"
+04-06-2025 09:09:17  393  git add .
+04-06-2025 09:09:20  394  git commit -am "push to test docker cronjobs"
+04-06-2025 09:09:24  395  git push
+04-06-2025 09:09:52  396  git add .
+04-06-2025 09:09:56  397  git commit -am "push to test docker cronjobs"
+04-06-2025 09:10:51  398  git push
+04-06-2025 09:12:50  399  git push
+04-06-2025 09:14:00  400  git rm --cached Django_CronJobs/djangocron.tar
+04-06-2025 09:14:12  401  git rm --cached djangocron.tar
+04-06-2025 09:14:46  402  echo '*.tar' >> .gitignore
+04-06-2025 09:15:07  403  git add .gitignore
+04-06-2025 09:15:09  404  git commit -m "Ignore .tar files"
+04-06-2025 09:15:39  405  git push
+04-06-2025 09:15:57  406  pip install git-filter-repo
+04-06-2025 09:16:23  407  git push origin --force --all
+04-06-2025 09:16:33  408  git filter-repo --path djangocron.tar --invert-paths
+04-06-2025 09:16:36  409  git filter-repo --path djangocron.tar --invert-paths

@@ -6,3 +6,19 @@
 31-05-2025 21:29:31  399  git push
 31-05-2025 23:05:18  400  pip install django-cron
 31-05-2025 23:10:38  401  ls
+04-06-2025 07:40:51  392  "New Terminal"
+04-06-2025 07:46:16  393  docker compose up
+04-06-2025 07:46:19  394  docker compose up
+04-06-2025 07:49:49  395  docker load -i gemtenai.tar 
+04-06-2025 07:50:04  396  docker compose up
+04-06-2025 07:50:33  397  ls -l docker-compose.yml
+04-06-2025 07:51:18  398  ls -l docker-compose.yml
+04-06-2025 07:51:24  399  docker compose up
+04-06-2025 09:17:07  410  cd ..
+04-06-2025 09:17:08  411  ls
+04-06-2025 09:17:41  412  git add .
+04-06-2025 09:17:42  413  git commit -am "..."
+04-06-2025 09:18:33  414  git push
+04-06-2025 09:21:01  415  git clone https://github.com/shishirRsiam/Django-Lab.git
+04-06-2025 09:21:21  416  ls
+04-06-2025 09:21:45  417  git add .
