@@ -35,3 +35,6 @@
 04-06-2025 09:27:21  400  git clone https://github.com/shishirRsiam/Django-Lab.git
 04-06-2025 09:27:32  401  ls
 04-06-2025 09:27:35  402  git add .
+04-06-2025 09:27:47  403  git commit -am "test build image and run"
+04-06-2025 09:27:50  404  git push
+04-06-2025 09:34:14  405  git add .

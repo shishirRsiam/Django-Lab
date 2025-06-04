@@ -3,11 +3,11 @@ name: Docker Hello World
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   run-hello-docker:
-    runs-on: ubuntu-latest  # GitHub-hosted VM with Docker pre-installed
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -15,11 +15,25 @@ jobs:
 
       - name: List files in custom dir
         run: ls -la
-        # working-directory: ./docker_plus_github
 
       - name: Build Docker image
         run: docker build -t hello-image .
         working-directory: Django_CronJobs
 
-      - name: Run Docker container
-        run: docker run hello-image
+      - name: Run Docker container in detached mode
+        run: docker run -d -p 8000:8000 --name hello-container hello-image
+
+      - name: Wait and check localhost status
+        run: |
+          echo "Waiting 60 seconds for the service to start..."
+          sleep 60
+
+          echo "Checking if localhost is running..."
+          for i in {1..5}; do
+            curl -sSf http://localhost:8000 && echo "✅ Server is up!" && exit 0
+            echo "❌ Server not responding. Retrying in 10s..."
+            sleep 10
+          done
+
+          echo "❌ Server failed to start after multiple attempts."
+          exit 1
