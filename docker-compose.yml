@@ -1,0 +1,65 @@
+  version: '3.9'
+
+  services:
+    server:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: server
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./server:/server
+      working_dir: /server
+      command: sh entrypoint.sh
+      depends_on:
+        - postgres
+
+    client:
+      image: node:22-alpine
+      container_name: client
+      ports:
+        - "5173:5173"
+      volumes:
+        - ./client:/client
+      working_dir: /client
+      command: sh -c "npm i && npm run dev -- --host 0.0.0.0"
+
+    postgres:
+      image: postgres:14
+      container_name: postgres
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_DB: GemtenAi_db
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: admin
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+    pgadmin:
+      image: dpage/pgadmin4:latest
+      container_name: pgadmin
+      ports:
+        - "5050:80"
+      environment:
+        PGADMIN_DEFAULT_EMAIL: postgres@gmail.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+      volumes:
+        - pgadmin_data:/var/lib/pgadmin
+      depends_on:
+        - postgres
+
+    redis:
+      image: redis:alpine
+      container_name: redis
+      ports: 
+        - "6379:6379"
+      command: redis-server --appendonly yes --maxmemory 500mb --maxmemory-policy allkeys-lru
+      volumes: 
+        - redis_data:/data
+
+  volumes:
+    redis_data:
+    pgadmin_data:
+    postgres_data:

@@ -1,0 +1,25 @@
+name: Docker Hello World
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+jobs:
+  run-hello-docker:
+    runs-on: ubuntu-latest  # GitHub-hosted VM with Docker pre-installed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: List files in custom dir
+        run: ls -la
+        # working-directory: ./docker_plus_github
+
+      - name: Build Docker image
+        run: docker build -t hello-image .
+        working-directory: Django_CronJobs
+
+      - name: Run Docker container
+        run: docker run hello-image

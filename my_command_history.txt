@@ -27,3 +27,11 @@
 04-06-2025 09:22:51  392  "New Terminal"
 04-06-2025 09:23:27  394  cd ..
 04-06-2025 09:23:40  395  git add .
+04-06-2025 09:23:41  396  git commit -am "push for test django cronjobs"
+04-06-2025 09:23:45  397  git push
+04-06-2025 09:25:17  420  git add .
+04-06-2025 09:25:31  398  git commit -am "push for test django cronjobs"
+04-06-2025 09:26:58  399  ls
+04-06-2025 09:27:21  400  git clone https://github.com/shishirRsiam/Django-Lab.git
+04-06-2025 09:27:32  401  ls
+04-06-2025 09:27:35  402  git add .
